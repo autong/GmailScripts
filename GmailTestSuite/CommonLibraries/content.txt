@@ -1,0 +1,5 @@
+!include -c <GmailTestSuite.CommonFiles.ConfigPage
+!include -c <GmailTestSuite.CommonFiles.PageLocators
+!include -c <GmailTestSuite.CommonFiles.ResultLayout
+!include -c <GmailTestSuite.CommonFiles.ReadDataFromExcel
+!include -c <GmailTestSuite.CommonFiles.CommonScenarios

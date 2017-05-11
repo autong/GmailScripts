@@ -1,0 +1,268 @@
+'''Scenarios for initializing the reports, open browser, url'''
+!|Scenario             |set result name _ at path _|resultname, pagepath|
+|variable              |suitePath                  |equals to           |
+|get Absolute Page Path|@pagepath                                       |
+
+!|Scenario    |start browser and open url _|url|
+|start browser|${DEFAULT_BROWSER}              |
+|maximize browser                              |
+|open URL     |@url                            |
+
+!|Scenario           |login with username _ and password _|username,password                     |
+|type                |@username                           |into|{$LOGIN.usernamefield}|text field|
+|set page time out   |1                                                                          |
+|variable            |passwordExists                      |equals  to                            |
+|verify page contains|{$LOGIN.passwordfield}              |element                               |
+|set page time out   |30                                                                         |
+|If                  |{$passwordExists}                                                          |
+|type                |@password                           |into|{$LOGIN.passwordfield}|text field|
+|click               |{$LOGIN.loginbutton}                                                       |
+|Else                                                                                            |
+|click               |{$LOGIN.nextbutton}                                                        |
+|wait  for  element  |{$LOGIN.passwordfield}                                                     |
+|type                |@password                           |into|{$LOGIN.passwordfield}|text field|
+|click               |{$LOGIN.loginbutton}                                                       |
+|End If                                                                                          |
+
+!|Scenario       |verify login action                                      |
+|variable        |loginSuccess   |equals to                                |
+|wait for element|{$INBOX.composebutton}                                   |
+|assert          |{$loginSuccess}|true with message|Verify login is success|
+
+!| Scenario              |compose mail and verify                         |
+|pause  execution  for   |3         |seconds                              |
+|click                   |{$GMAIL.composebutton}                          |
+|wait  for  element      |{$GMAIL.tofield}                                |
+|enter recepient         |{$recepient}                                    |
+|enter cc                |{$cc}                                           |
+|enter bcc               |{$bcc}                                          |
+|type                    |{$subject}|into|{$GMAIL.subjectfield}|text field|
+|type                    |{$body}   |into|{$GMAIL.bodyarea}    |text field|
+|attach from drive       |{$driveFile}                                    |
+|attach photo from photos|{$photo}                                        |
+|pause  execution  for   |6         |seconds                              |
+|click                   |{$GMAIL.sendbutton}                             |
+|verify email sent                                                        |
+|verify email has arrived                                                 |
+
+!| Scenario           |enter recepient|rec                            |
+|type                 |@rec           |into|{$GMAIL.tofield}|text area|
+|pause  execution  for|1              |seconds                        |
+
+!| Scenario           |enter cc|rec                            |
+|click                |{$GMAIL.addccbutton}                    |
+|pause  execution  for|1       |seconds                        |
+|type                 |@rec    |into|{$GMAIL.ccfield}|text area|
+|pause  execution  for|1       |seconds                        |
+
+!| Scenario           |enter bcc|rec                             |
+|click                |{$GMAIL.addbccbutton}                     |
+|pause  execution  for|1        |seconds                         |
+|type                 |@rec     |into|{$GMAIL.bccfield}|text area|
+|pause  execution  for|1        |seconds                         |
+
+!| Scenario           |attach from drive                          |file                                                |
+|click                |{$GMAIL.insertdrivebutton}                                                                      |
+|pause  execution  for|5                                          |seconds                                             |
+|select               |.//iframe[contains(@src,'docs.google.com')]|frame                                               |
+|wait  for  element   |(.//div[text()='Insert files using Google Drive'])[1]                                           |
+|click                |.//input[@aria-label='Search terms']                                                            |
+|type                 |@file                                      |into|.//input[@aria-label='Search terms']|text field|
+|click                |.//div[@aria-label='Search']                                                                    |
+|wait  for  element   |(.//span[text()='@file'])[2]                                                                    |
+|click                |(.//span[text()='@file'])[2]                                                                    |
+|click                |(.//div[text()='Insert'])[2]                                                                    |
+|select               |Default                                    |frame                                               |
+
+!| Scenario        |verify email sent                                              |
+|variable          |mailSentSuccess   |equals  to                                  |
+|wait  for  element|.//div[contains(text(),'Your message has been sent')]          |
+|assert            |{$mailSentSuccess}|true with message|Verify email has been sent|
+
+!| Scenario           |attach photo from photos                   |photo  |
+|click                |.//div[@aria-label='Insert Photo']                 |
+|pause  execution  for|5                                          |seconds|
+|select               |.//iframe[contains(@src,'docs.google.com')]|frame  |
+|wait  for  element   |.//img[@title='@photo']                            |
+|click                |.//img[@title='@photo']                            |
+|click                |.//div[text()='Insert']                            |
+|select               |Default                                    |frame  |
+
+!| Scenario           |verify email has arrived                                  |
+|click                |.//a[contains(text(),'Inbox')]                            |
+|variable             |emailArrived   |equals  to                                |
+|wait  for  element   |(.//b[text()='{$subject}'])[last()]                       |
+|assert               |{$emailArrived}|true with message|Verify email has arrived|
+|If                   |{$emailArrived}                                           |
+|pause  execution  for|1              |seconds                                   |
+|click                |(.//b[text()='{$subject}'])[last()]                       |
+|pause  execution  for|2              |seconds                                   |
+|End If                                                                          |
+
+!| Scenario           |attach from file system           |
+|pause  execution  for|3             |seconds            |
+|click                |.//div[@aria-label='Attach files']|
+|pause  execution  for|2             |seconds            |
+|run windows command  |{$suitePath}/data/gmail.exe       |
+|pause  execution  for|4             |seconds            |
+
+
+!| Scenario                 |verify chat                                                                                                                                    |
+|select                     |Default                                                                                     |frame                                             |
+|variable                   |chatroster                                                                                  |equals  to                                        |
+|wait  for  element         |{$CHAT.roster}                                                                                                                                 |
+|assert                     |{$chatroster}                                                                               |true with message|Verify chat roster exists       |
+|select                     |{$CHAT.roster}                                                                              |frame                                             |
+|wait  for  element         |{$CHAT.user}                                                                                                                                   |
+|execute javascript function|dispatchEvent(new MouseEvent("mouseover", {bubbles: true, cancelable: true, view: window}));|on element       |{$CHAT.user}                    |
+|select                     |Default                                                                                     |frame                                             |
+|select                     |{$CHAT.profileframe}                                                                        |frame                                             |
+|variable                   |profilepopup                                                                                |equals  to                                        |
+|wait  for  element         |{$CHAT.popup}                                                                                                                                  |
+|assert                     |{$profilepopup}                                                                             |true with message|Profile popup opens successfully|
+|select                     |Default                                                                                     |frame                                             |
+|select                     |{$CHAT.chatframe}                                                                           |frame                                             |
+|click                      |{$CHAT.user}                                                                                                                                   |
+|select                     |Default                                                                                     |frame                                             |
+|select                     |{$CHAT.textframe}                                                                           |frame                                             |
+|click                      |{$CHAT.textbox}                                                                                                                                |
+|type                       |Hi from AutomationNG, :)                                                                    |into             |{$CHAT.textbox}   |text field   |
+|press                      |ENTER                                                                                       |key                                               |
+|pause  execution  for      |3                                                                                           |seconds                                           |
+|select                     |Default                                                                                     |frame                                             |
+
+
+!| Scenario           |verify settings                                                                                                                                       |
+|wait  for  element   |{$SETTING.button}                                                                                                                                     |
+|click                |{$SETTING.button}                                                                                                                                     |
+|wait  for  element   |{$SETTING.link}                                                                                                                                       |
+|click                |{$SETTING.link}                                                                                                                                       |
+|variable             |settingsloaded                                                                               |equals  to                                              |
+|wait  for  element   |{$SETTING.respondertext}                                                                                                                              |
+|assert               |{$settingsloaded}                                                                            |true with message|Settings loaded successfully          |
+|scroll to            |{$SETTING.respondertext}                                                                                                                              |
+|click                |{$SETTING.responderradio}                                                                                                                             |
+|clear  text          |{$SETTING.respondersubject}                                                                                                                           |
+|type                 |On Vacation                                                                                  |into             |{$SETTING.respondersubject}|text field|
+|clear  text          |{$SETTING.respondermessage}                                                                                                                           |
+|type                 |Hi, I'm on vacation. you can contact on this email-id: govind.kalria@indecomm.net. Thank you.|into             |{$SETTING.respondermessage}|text field|
+|click                |{$SETTING.respondersave}                                                                                                                              |
+|pause  execution  for|3                                                                                            |seconds                                                 |
+|select               |Default                                                                                      |frame                                                   |
+|variable             |vacationon                                                                                   |equals  to                                              |
+|wait  for  element   |{$SETTING.responderalert}                                                                                                                             |
+|assert               |{$vacationon}                                                                                |true with message|Vacation responder set successfully   |
+|wait  for  element   |{$SETTING.responderendlink}                                                                                                                           |
+|pause  execution  for|4                                                                                            |seconds                                                 |
+|click                |{$SETTING.responderendlink}                                                                                                                           |
+|pause  execution  for|3                                                                                            |seconds                                                 |
+
+
+!| Scenario            |verify contact view                                             |
+|select                |Default       |frame                                            |
+|wait  for  element    |{$CONTACT.navlink}                                              |
+|click                 |{$CONTACT.navlink}                                              |
+|wait  for  element    |{$CONTACT.link}                                                 |
+|click                 |{$CONTACT.link}                                                 |
+|select  window  number|2                                                               |
+|wait  for  element    |{$CONTACT.list}                                                 |
+|click                 |{$CONTACT.list}                                                 |
+|variable              |contactview   |equals  to                                       |
+|wait  for  element    |{$CONTACT.popup}                                                |
+|assert                |{$contactview}|true with message|Contact view opens successfully|
+|pause  execution  for |2             |seconds                                          |
+|click                 |{$CONTACT.popupclose}                                           |
+|close  window  number |2                                                               |
+
+
+!| Scenario           |verify theme change|
+|select               |Default  |frame    |
+|wait  for  element   |{$THEME.button}    |
+|click                |{$THEME.button}    |
+|wait  for  element   |{$THEME.link}      |
+|click                |{$THEME.link}      |
+|wait  for  element   |{$THEME.select}    |
+|scroll to            |{$THEME.select}    |
+|click                |{$THEME.select}    |
+|pause  execution  for|3        |seconds  |
+|click                |{$THEME.save}      |
+|pause  execution  for|2        |seconds  |
+
+!|Scenario               |verify attachments                                                                     |
+|variable                |fileExists                       |equals  to                                           |
+|check  if               |{$DATASHEET.downloadfilelocation}|file  exists                                         |
+|If                      |{$fileExists}                                                                          |
+|delete                  |{$DATASHEET.downloadfilelocation}|file  or  directory                                  |
+|End If                                                                                                          |
+|wait  for  element      |{$INBOX.inboxmail}                                                                     |
+|click                   |{$INBOX.inboxmail}                                                                     |
+|wait  for  element      |{$INBOX.downloadcontent}                                                               |
+|pause  execution  for   |6                                |seconds                                              |
+|mouse hover and click on|{$INBOX.downloadcontent}                                                               |
+|wait  for  element      |{$INBOX.downloadicon}                                                                  |
+|click                   |{$INBOX.downloadicon}                                                                  |
+|pause  execution  for   |5                                |seconds                                              |
+|variable                |fileExists                       |equals  to                                           |
+|check  if               |{$DATASHEET.downloadfilelocation}|file  exists                                         |
+|assert                  |{$fileExists}                    |true with message|Verify file downloaded successfully|
+|If                      |{$fileExists}                                                                          |
+|delete                  |{$DATASHEET.downloadfilelocation}|file  or  directory                                  |
+|End If                                                                                                          |
+
+!|Scenario            |verify tearoffs                                                        |
+|pause  execution  for|10                  |seconds                                           |
+|navigate to draft                                                                            |
+|delete mail from draft                                                                       |
+|navigate to inbox                                                                            |
+|send robot           |SHIFT,C             |key                                               |
+|pause  execution  for|5                   |seconds                                           |
+|switch to popup window                                                                       |
+|enter recepient      |{$recepient}                                                           |
+|enter cc             |{$cc}                                                                  |
+|enter bcc            |{$bcc}                                                                 |
+|type                 |{$subject}          |into             |{$GMAIL.subjectfield}|text field|
+|type                 |{$body}             |into             |{$GMAIL.bodyarea}    |text field|
+|pause  execution  for|5                   |seconds                                           |
+|close popup window                                                                           |
+|switch to default window                                                                     |
+|navigate to draft                                                                            |
+|wait  for  element   |{$DRAFT.testmail}                                                      |
+|click                |{$DRAFT.testmail}                                                      |
+|switch to popup window                                                                       |
+|variable             |mailSubject         |equals  to                                        |
+|get  text  from      |{$GMAIL.bodycontent}|text  field                                       |
+|click                |{$GMAIL.close}                                                        |
+|switch to default window                                                                     |
+|variable             |isEquals            |equals  to                                        |
+|verify               |{$mailSubject}      |with             |{$body}                         |
+|assert               |{$isEquals}         |true with message|Verify mail subject is unchanged|
+
+
+!|Scenario  |navigate to draft                            |
+|clear  text|{$INBOX.searchfield}                         |
+|type       |in:draft|into|{$INBOX.searchfield}|text field|
+|click      |{$INBOX.serchbutton}                         |
+
+
+!|Scenario  |navigate to inbox                            |
+|clear  text|{$INBOX.searchfield}                         |
+|type       |in:inbox|into|{$INBOX.searchfield}|text field|
+|click      |{$INBOX.serchbutton}                         |
+
+
+!|Scenario            |delete mail from draft               |
+|variable             |isPresent                 |equals  to|
+|verify page contains |{DRAFT.checknomailbox}    |element   |
+|variable             |condition                 |equals  to|
+|assert false         |{$isPresent}                         |
+|If                   |{$condition}                         |
+|variable             |verifyElementinGmail      |equals  to|
+|verify page contains |{$DRAFT.selectallcheckbox}|element   |
+|If                   |{$verifyElementinGmail}              |
+|check check box      |{$DRAFT.selectallcheckbox}           |
+|End If                                                     |
+|pause  execution  for|5                         |seconds   |
+|verify page contains |{$DRAFT.discarddrafts}    |element   |
+|click                |{$DRAFT.discarddrafts}               |
+|pause  execution  for|5                         |seconds   |
+|End If                                                     |

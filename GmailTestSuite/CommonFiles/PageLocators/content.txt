@@ -1,0 +1,95 @@
+|Data Repository     |DATASHEET                                          |
+|Id                  |Value                                              |
+|url                 |!-http://www.gmail.com/-!                          |
+|downloadfilelocation|!-C:/Users/Manas.Gantayat/Downloads/testPhoto.png-!|
+
+
+|Object Repository|INBOX                                                            |
+|Id               |Value                                                      |Type |
+|composebutton    |.//div[text()='COMPOSE']                                   |xpath|
+|inboxmail        |(//div[@class='y6']/span[contains(text(),'Test Email')])[1]|xpath|
+|downloadcontent  |//img[@width='505']                                        |xpath|
+|downloadicon     |.//div[@aria-label='Download']                             |xpath|
+|searchfield      |.//input[@aria-label='Search']                             |xpath|
+|serchbutton      |.//*[@aria-label='Search Gmail']                           |xpath|
+
+
+|Object Repository|LOGIN      |
+|Id               |Value |Type|
+|usernamefield    |Email |id  |
+|nextbutton       |next  |id  |
+|passwordfield    |Passwd|id  |
+|loginbutton      |signIn|id  |
+
+|Object Repository|CALENDARPAGE                                                           |
+|Id               |Value                                                            |Type |
+|createbutton     |.//div[text()='Create']                                          |xpath|
+|eventtitlefield  |.//input[@title='Event title']                                   |xpath|
+|fromdate         |.//input[@title='From date']                                     |xpath|
+|fromtime         |.//input[@title='From time']                                     |xpath|
+|untiltime        |.//input[@title='Until time']                                    |xpath|
+|untildate        |.//input[@title='Until date']                                    |xpath|
+|location         |.//input[@placeholder='Enter a location']                        |xpath|
+|description      |.//label[text()='Description']/../following-sibling::td//textarea|xpath|
+
+|Object Repository|GMAIL                                                    |
+|Id               |Value                                              |Type |
+|composebutton    |.//div[text()='COMPOSE']                           |xpath|
+|tofield          |.//textarea[@aria-label='To']                      |xpath|
+|addccbutton      |.//span[contains(@aria-label,'Add Cc Recipients')] |xpath|
+|addbccbutton     |.//span[contains(@aria-label,'Add Bcc Recipients')]|xpath|
+|ccfield          |.//textarea[@aria-label='Cc']                      |xpath|
+|bccfield         |.//textarea[@aria-label='Bcc']                     |xpath|
+|subjectfield     |.//input[@placeholder='Subject']                   |xpath|
+|bodyarea         |.//div[@aria-label='Message Body']                 |xpath|
+|sendbutton       |.//div[text()='Send']                              |xpath|
+|insertdrivebutton|.//div[@aria-label='Insert files using Drive']     |xpath|
+|bodycontent      |(.//*[@aria-label='Message Body'])[2]              |xpath|
+|close            |.//img[@data-tooltip='Save & Close']               |xpath|
+
+
+|Object Repository|DRAFT                                                                           |
+|Id               |Value                                                                     |Type |
+|selectallcheckbox|(//span[@role='checkbox']/div[@role='presentation'])[2]                   |xpath|
+|discarddrafts    |.//div[contains(text(),'Discard drafts')]                                 |xpath|
+|checknomailbox   |.//td[contains(text(),'any saved drafts')]                                |xpath|
+|testmail         |(.//font[text()='Draft']/../../..//span[contains(text(),'Test Email')])[1]|xpath|
+
+|Object Repository|CHAT                                                                                                         |
+|Id               |Value                                                                                                  |Type |
+|roster           |(.//iframe[contains(@src, 'hangouts.google.com') and contains(@style, 'width: 100')])[1]               |xpath|
+|user             |.//span[text()='Bhagavan Kailar']                                                                      |xpath|
+|profileframe     |.//iframe[contains(@src,'apis.google.com') and contains(@style, 'width: 350')]                         |xpath|
+|popup            |.//img[contains(@title,'Bhagavan Kailar') and contains(@width, '90')]                                  |xpath|
+|chatframe        |(.//iframe[contains(@src, 'hangouts.google.com') and contains(@style, 'width: 100')])[1]               |xpath|
+|textframe        |(.//iframe[contains(@src, 'hangouts.google.com/webchat/u/0/frame?') and not(contains(@width, '1'))])[1]|xpath|
+|textbox          |.//div[@role='textbox']                                                                                |xpath|
+
+|Object Repository|SETTING                                                                               |
+|Id               |Value                                                                           |Type |
+|buttonchrome     |.//div[contains(@role,'button') and contains(@title,'Settings')]                |xpath|
+|buttonfirefox    |.//div[contains(@role,'button') and contains(@aria-label,'Settings')]           |xpath|
+|link             |.//div[contains(text(),'Settings')]                                             |xpath|
+|respondertext    |.//span[contains(text(),'Vacation responder:')]                                 |xpath|
+|responderradio   |.//label[contains(text(),'Vacation responder on')]                              |xpath|
+|respondersubject |.//input[contains(@type,'text') and contains(@aria-label,'Subject')]            |xpath|
+|respondermessage |.//div[contains(@role,'textbox') and contains(@aria-label,'Vacation responder')]|xpath|
+|respondersave    |.//button[contains(text(),'Save Changes')]                                      |xpath|
+|responderalert   |.//div[contains(text(),'On Vacation')]                                          |xpath|
+|responderendlink |.//span[contains(text(),'End now')]                                             |xpath|
+
+
+|Object Repository|CONTACT                                                                    |
+|Id               |Value                                                                |Type |
+|navlink          |.//div[contains(@aria-label,'Navigate to')]                          |xpath|
+|link             |.//div[contains(text(),'Contacts')]                                  |xpath|
+|list             |.//span[contains(text(),'Test Testing')]                             |xpath|
+|popup            |.//div[contains(text(),'Test Testing') and contains(@role,'heading')]|xpath|
+|popupclose       |.//div[contains(@aria-label,'Close')]                                |xpath|
+
+|Object Repository|THEME                                                                 |
+|Id               |Value                                                           |Type |
+|button           |.//div[contains(@role,'button') and contains(@title,'Settings')]|xpath|
+|link             |.//div[contains(text(),'Themes')]                               |xpath|
+|select           |.//div[contains(@aria-label,'Dark')]                            |xpath|
+|save             |.//div[contains(text(),'Save')]                                 |xpath|
