@@ -67,8 +67,7 @@
 
 |Object Repository|SETTING                                                                               |
 |Id               |Value                                                                           |Type |
-|buttonchrome     |.//div[contains(@role,'button') and contains(@title,'Settings')]                |xpath|
-|buttonfirefox    |.//div[contains(@role,'button') and contains(@aria-label,'Settings')]           |xpath|
+|button           |.//div[contains(@role,'button') and contains(@title,'Settings')]                |xpath|
 |link             |.//div[contains(text(),'Settings')]                                             |xpath|
 |respondertext    |.//span[contains(text(),'Vacation responder:')]                                 |xpath|
 |responderradio   |.//label[contains(text(),'Vacation responder on')]                              |xpath|
@@ -93,3 +92,12 @@
 |link             |.//div[contains(text(),'Themes')]                               |xpath|
 |select           |.//div[contains(@aria-label,'Dark')]                            |xpath|
 |save             |.//div[contains(text(),'Save')]                                 |xpath|
+
+|Object Repository|SEARCH                                                                                     |
+|Id               |Value                                                                                |Type |
+|inputtext        |.//input[contains(@type,'text') and contains(@aria-label,'Search')]                  |xpath|
+|button           |.//button[contains(@aria-label,'Search Gmail')]                                      |xpath|
+|options          |.//div[contains(@role,'button') and contains(@data-tooltip,'Show search options')]   |xpath|
+|extrainputtext   |.//input[contains(@type,'text') and contains(@value,'Test Email')]                   |xpath|
+|innerbutton      |.//div[contains(@role,'button') and contains(@data-tooltip,'Search Mail')]           |xpath|
+|mailval          |(.//div[contains(@role,'main')]//table)[1]/tbody/tr[1]/td/div[contains(@role,'link')]|xpath|

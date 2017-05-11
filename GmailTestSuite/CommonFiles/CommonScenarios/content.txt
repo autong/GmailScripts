@@ -134,7 +134,7 @@
 
 !| Scenario           |verify settings                                                                                                                                       |
 |wait  for  element   |{$SETTING.button}                                                                                                                                     |
-|click                |{$SETTING.button}                                                                                                                                     |
+|focus and click      |{$SETTING.button}                                                                                                                                     |
 |wait  for  element   |{$SETTING.link}                                                                                                                                       |
 |click                |{$SETTING.link}                                                                                                                                       |
 |variable             |settingsloaded                                                                               |equals  to                                              |
@@ -178,7 +178,7 @@
 !| Scenario           |verify theme change|
 |select               |Default  |frame    |
 |wait  for  element   |{$THEME.button}    |
-|click                |{$THEME.button}    |
+|focus and click      |{$THEME.button}    |
 |wait  for  element   |{$THEME.link}      |
 |click                |{$THEME.link}      |
 |wait  for  element   |{$THEME.select}    |
@@ -231,7 +231,7 @@
 |switch to popup window                                                                       |
 |variable             |mailSubject         |equals  to                                        |
 |get  text  from      |{$GMAIL.bodycontent}|text  field                                       |
-|click                |{$GMAIL.close}                                                        |
+|click                |{$GMAIL.close}                                                         |
 |switch to default window                                                                     |
 |variable             |isEquals            |equals  to                                        |
 |verify               |{$mailSubject}      |with             |{$body}                         |
@@ -266,3 +266,29 @@
 |click                |{$DRAFT.discarddrafts}               |
 |pause  execution  for|5                         |seconds   |
 |End If                                                     |
+
+
+!| Scenario           |verify search                                                            |
+|select               |Default                 |frame                                           |
+|variable             |defaultval              |equals  to                                      |
+|evaluate             |Test Email                                                               |
+|wait  for  element   |{$SEARCH.inputtext}                                                      |
+|type                 |{$defaultval}           |into             |{$SEARCH.inputtext}|text field|
+|wait  for  element   |{$SEARCH.button}                                                         |
+|click                |{$SEARCH.button}                                                         |
+|pause  execution  for|2                       |seconds                                         |
+|wait  for  element   |{$SEARCH.options}                                                        |
+|click                |{$SEARCH.options}                                                        |
+|wait  for  element   |{$SEARCH.extrainputtext}                                                 |
+|variable             |haswords                |equals  to                                      |
+|get  text  from      |{$SEARCH.extrainputtext}|text  field                                     |
+|assert               |{$haswords}             |equals           |{$defaultval}                 |
+|wait  for  element   |{$SEARCH.innerbutton}                                                    |
+|click                |{$SEARCH.innerbutton}                                                    |
+|pause  execution  for|2                       |seconds                                         |
+|variable             |rowval                  |equals  to                                      |
+|get  text  from      |{$SEARCH.mailval}                                                        |
+|variable             |ispresent               |equals  to                                      |
+|verify  whether      |{$defaultval}           |is  present  in  |{$rowval}          |string    |
+|assert               |{$ispresent}            |true with message|List contains search data     |
+|pause  execution  for|3                       |seconds                                         |
