@@ -292,3 +292,32 @@
 |verify  whether      |{$defaultval}           |is  present  in  |{$rowval}          |string    |
 |assert               |{$ispresent}            |true with message|List contains search data     |
 |pause  execution  for|3                       |seconds                                         |
+
+
+!| Scenario           |verify multithread                                                          |
+|select               |Default        |frame                                                       |
+|variable             |mailText       |equals  to                                                  |
+|evaluate             |One more reply:)                                                            |
+|wait  for  element   |{$MULTITHREAD.maillist}                                                     |
+|variable             |isMultithread  |equals  to                                                  |
+|wait  for  element   |{$MULTITHREAD.singlemail}                                                   |
+|If                   |{$isMultithread}                                                            |
+|click                |{$MULTITHREAD.singlemail}                                                   |
+|variable             |threadOpened   |equals  to                                                  |
+|wait  for  element   |{$MULTITHREAD.mailheading}                                                  |
+|assert               |{$threadOpened}|true with message|Multithread conversation open successfully|
+|wait  for  element   |{$MULTITHREAD.mailreply}                                                    |
+|click                |{$MULTITHREAD.mailreply}                                                    |
+|wait  for  element   |{$MULTITHREAD.replybody}                                                    |
+|type                 |{$mailText}    |into             |{$MULTITHREAD.replybody}    |text field   |
+|focus and click      |{$MULTITHREAD.sendreply}                                                    |
+|pause  execution  for|3              |seconds                                                     |
+|click                |{$MULTITHREAD.inboxlink}                                                    |
+|pause  execution  for|2              |seconds                                                     |
+|wait  for  element   |{$MULTITHREAD.singlemail}                                                   |
+|click                |{$MULTITHREAD.singlemail}                                                   |
+|pause  execution  for|2              |seconds                                                     |
+|variable             |finalVal       |equals  to                                                  |
+|verify  text         |{$mailText}    |with             |{$MULTITHREAD.threadtext}   |field        |
+|assert               |{$finalVal}    |true with message|Received mail verified successfully       |
+|End If                                                                                            |
