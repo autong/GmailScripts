@@ -1,14 +1,14 @@
-|Data Repository     |DATASHEET                                          |
-|Id                  |Value                                              |
-|url                 |!-http://www.gmail.com/-!                          |
-|downloadfilelocation|!-C:/Users/Manas.Gantayat/Downloads/testPhoto.png-!|
+|Data Repository     |DATASHEET                                  |
+|Id                  |Value                                      |
+|url                 |!-http://www.gmail.com/-!                  |
+|downloadfilelocation|!-/Users/Priyanka/Downloads/testPhoto.png-!|
 
 
 |Object Repository|INBOX                                                            |
 |Id               |Value                                                      |Type |
 |composebutton    |.//div[text()='COMPOSE']                                   |xpath|
 |inboxmail        |(//div[@class='y6']/span[contains(text(),'Test Email')])[1]|xpath|
-|downloadcontent  |//img[@width='505']                                        |xpath|
+|downloadcontent  |//img[@width > 300 and @height > 200]                      |xpath|
 |downloadicon     |.//div[@aria-label='Download']                             |xpath|
 |searchfield      |.//input[@aria-label='Search']                             |xpath|
 |serchbutton      |.//*[@aria-label='Search Gmail']                           |xpath|

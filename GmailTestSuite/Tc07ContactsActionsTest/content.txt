@@ -30,7 +30,7 @@ Not applicable
 |                          |login with username|testemail744@gmail.com|and password|test@744|
 |pause  execution  for     |15                 |seconds                                     |
 |                          |verify login action                                             |
-|compose mail and verify                                                                    |
+|                          |compose mail and verify                                         |
 |verify contact view                                                                        |
 |close browser                                                                              |
 
