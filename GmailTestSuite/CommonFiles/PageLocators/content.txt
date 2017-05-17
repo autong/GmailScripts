@@ -1,14 +1,14 @@
-|Data Repository     |DATASHEET                                          |
-|Id                  |Value                                              |
-|url                 |!-http://www.gmail.com/-!                          |
-|downloadfilelocation|!-C:/Users/Manas.Gantayat/Downloads/testPhoto.png-!|
+|Data Repository     |DATASHEET                                  |
+|Id                  |Value                                      |
+|url                 |!-http://www.gmail.com/-!                  |
+|downloadfilelocation|!-/Users/Priyanka/Downloads/testPhoto.png-!|
 
 
 |Object Repository|INBOX                                                            |
 |Id               |Value                                                      |Type |
 |composebutton    |.//div[text()='COMPOSE']                                   |xpath|
 |inboxmail        |(//div[@class='y6']/span[contains(text(),'Test Email')])[1]|xpath|
-|downloadcontent  |//img[@width='505']                                        |xpath|
+|downloadcontent  |//img[@width > 300 and @height > 200]                      |xpath|
 |downloadicon     |.//div[@aria-label='Download']                             |xpath|
 |searchfield      |.//input[@aria-label='Search']                             |xpath|
 |serchbutton      |.//*[@aria-label='Search Gmail']                           |xpath|
@@ -132,3 +132,14 @@
 |extrainputtext   |.//input[contains(@type,'text') and contains(@value,'Test Email')]                   |xpath|
 |innerbutton      |.//div[contains(@role,'button') and contains(@data-tooltip,'Search Mail')]           |xpath|
 |mailval          |(.//div[contains(@role,'main')]//table)[1]/tbody/tr[1]/td/div[contains(@role,'link')]|xpath|
+
+|Object Repository|MULTITHREAD                                                                                                                                              |
+|Id               |Value                                                                                                                                              |Type |
+|maillist         |(.//div[contains(@role,'main')]//table)[2]/tbody                                                                                                   |xpath|
+|singlemail       |((.//div[contains(@role,'main')]//table)[2]/tbody/tr/td//span[contains(@email,'testemail744@gmail.com')]/parent::div[contains(text(),'(')])[last()]|xpath|
+|mailheading      |.//h2[contains(text(),'Test Email')]                                                                                                               |xpath|
+|mailreply        |.//div[contains(@role,'button') and contains(@aria-label,'Reply')]                                                                                 |xpath|
+|replybody        |.//div[contains(@role,'textbox') and contains(@aria-label,'Message Body')]                                                                         |xpath|
+|sendreply        |.//div[contains(@role,'button') and contains(text(),'Send')]                                                                                       |xpath|
+|inboxlink        |.//a[contains(text(),'Inbox')]                                                                                                                     |xpath|
+|threadtext       |(.//div[contains(@role,'listitem')][last()]//div[contains(text(),'One more')])[1]                                                                  |xpath|

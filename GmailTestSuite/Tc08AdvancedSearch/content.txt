@@ -1,26 +1,7 @@
 |import                          |
 |net.indecomm.autong.api.fitnesse|
 
-----
-'''Test Steps'''
-1. Open the google mail
-2. Open compose mail section
-3. Attach a file from google drive  
-4. Attach a photo from google photos
-5. Send the mail to self
-6. Verify if the mail has arrived
-
-'''Pre condition for script execution'''
-Test URL: https://mail.google.com/
-
-
-'''Post execution instructions'''
-Not applicable
-----
-
-
 !include -c <GmailTestSuite.CommonLibraries
-
 
 !|Script                   |AutomationNG                                                    |
 |set test                  |${PAGE_NAME}                                                    |
@@ -30,9 +11,5 @@ Not applicable
 |                          |login with username|testemail744@gmail.com|and password|test@744|
 |pause  execution  for     |15                 |seconds                                     |
 |                          |verify login action                                             |
-|                          |compose mail and verify                                         |
-|verify contact view                                                                        |
+|verify search                                                                              |
 |close browser                                                                              |
-
-
-
