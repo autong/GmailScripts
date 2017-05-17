@@ -46,6 +46,7 @@
 |insertdrivebutton|.//div[@aria-label='Insert files using Drive']     |xpath|
 |bodycontent      |(.//*[@aria-label='Message Body'])[2]              |xpath|
 |close            |.//img[@data-tooltip='Save & Close']               |xpath|
+|inbox            |//a[contains(@aria-label,'Inbox ')]                |xpath|
 
 
 |Object Repository|DRAFT                                                                           |
@@ -76,7 +77,37 @@
 |respondersave    |.//button[contains(text(),'Save Changes')]                                      |xpath|
 |responderalert   |.//div[contains(text(),'On Vacation')]                                          |xpath|
 |responderendlink |.//span[contains(text(),'End now')]                                             |xpath|
+|Filterlink       |//a[contains(text(),'Filters and Blocked Addresses')]                           |xpath|
 
+
+|Object Repository|FORUMS                      |
+|Id               |Value                 |Type |
+|fourmstab        |//div[text()='Forums']|xpath|
+
+
+
+|Object Repository     |FILTER                                                                                                        |
+|Id                    |Value                                                                                                   |Type |
+|deletelink            |(//span[contains(text(),'delete')])[1]                                                                  |xpath|
+|selectalllink         |(//span[contains(text(),'All')])[1]                                                                     |xpath|
+|deletebutton          |.//button[contains(text(),'Delete')]                                                                    |xpath|
+|okbutton              |//button[contains(text(),'OK')]                                                                         |xpath|
+|createfilterlink      |//span[contains(text(),'Create a new filter')]                                                          |xpath|
+|subjecttext           |//label[contains(text(),'Subject')]/parent::span/following-sibling::span/input                          |xpath|
+|categorizelist        |(//label[contains(text(),'Categorize as:')]/parent::div/div[@role='listbox'])[2]                        |xpath|
+|createfiltersearchlink|//div[contains(text(),'Create filter with this search')]                                                |xpath|
+|createfilterbutton    |//div[@role='button'][contains(text(),'Create filter')]                                                 |xpath|
+|filterpopup           |//span[contains(text(),'Your filter was created.')]                                                     |xpath|
+|unreadmail            |(//span/b[contains(text(),'Automation Testcase')])[1]                                                   |xpath|
+|subjectcontent        |//h2[contains(text(),'Automation Testcase')]                                                            |xpath|
+|mail                  |(//*[contains(text(),'Automation Testcase')] )[3]                                                       |xpath|
+|selectbutton          |//div[@aria-label='Select']                                                                             |xpath|
+|selectall             |(//div[@selector='all'])[1]                                                                             |xpath|
+|deletebuttons          |//div[@aria-label='Delete']/div/div                                                                     |xpath|
+|categorizecheckbox    |//label[contains(text(),'Categorize as:')]/preceding-sibling::input                                     |xpath|
+|promotionsdropdown    |//label[contains(text(),'Categorize as:')]/parent::div/div[@role='listbox']/div/div[text()='Promotions']|xpath|
+|forumsdropdown        |//label[contains(text(),'Categorize as:')]/parent::div/div[@role='listbox']/div/div[text()='Forums']    |xpath|
+ 
 
 |Object Repository|CONTACT                                                                    |
 |Id               |Value                                                                |Type |

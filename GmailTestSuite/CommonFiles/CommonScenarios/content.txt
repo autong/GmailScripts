@@ -1,14 +1,15 @@
 '''Scenarios for initializing the reports, open browser, url'''
-!|Scenario             |set result name _ at path _|resultname, pagepath|
+
+!| Scenario            |set result name _ at path _|resultname, pagepath|
 |variable              |suitePath                  |equals to           |
 |get Absolute Page Path|@pagepath                                       |
 
-!|Scenario    |start browser and open url _|url|
+!| Scenario   |start browser and open url _|url|
 |start browser|${DEFAULT_BROWSER}              |
 |maximize browser                              |
 |open URL     |@url                            |
 
-!|Scenario           |login with username _ and password _|username,password                     |
+!| Scenario          |login with username _ and password _|username,password                     |
 |type                |@username                           |into|{$LOGIN.usernamefield}|text field|
 |set page time out   |1                                                                          |
 |variable            |passwordExists                      |equals  to                            |
@@ -24,7 +25,7 @@
 |click               |{$LOGIN.loginbutton}                                                       |
 |End If                                                                                          |
 
-!|Scenario       |verify login action                                      |
+!| Scenario      |verify login action                                      |
 |variable        |loginSuccess   |equals to                                |
 |wait for element|{$INBOX.composebutton}                                   |
 |assert          |{$loginSuccess}|true with message|Verify login is success|
@@ -106,7 +107,6 @@
 |run windows command  |{$suitePath}/data/gmail.exe       |
 |pause  execution  for|4             |seconds            |
 
-
 !| Scenario                 |verify chat                                                                                                                                    |
 |select                     |Default                                                                                     |frame                                             |
 |variable                   |chatroster                                                                                  |equals  to                                        |
@@ -130,7 +130,6 @@
 |press                      |ENTER                                                                                       |key                                               |
 |pause  execution  for      |3                                                                                           |seconds                                           |
 |select                     |Default                                                                                     |frame                                             |
-
 
 !| Scenario           |verify settings                                                                                                                                       |
 |wait  for  element   |{$SETTING.button}                                                                                                                                     |
@@ -157,7 +156,6 @@
 |click                |{$SETTING.responderendlink}                                                                                                                           |
 |pause  execution  for|3                                                                                            |seconds                                                 |
 
-
 !| Scenario            |verify contact view                                             |
 |select                |Default       |frame                                            |
 |wait  for  element    |{$CONTACT.navlink}                                              |
@@ -174,7 +172,6 @@
 |click                 |{$CONTACT.popupclose}                                           |
 |close  window  number |2                                                               |
 
-
 !| Scenario           |verify theme change|
 |select               |Default  |frame    |
 |wait  for  element   |{$THEME.button}    |
@@ -188,7 +185,7 @@
 |click                |{$THEME.save}      |
 |pause  execution  for|2        |seconds  |
 
-!|Scenario               |verify attachments                                                                     |
+!| Scenario              |verify attachments                                                                     |
 |variable                |fileExists                       |equals  to                                           |
 |check  if               |{$DATASHEET.downloadfilelocation}|file  exists                                         |
 |If                      |{$fileExists}                                                                          |
@@ -209,7 +206,7 @@
 |delete                  |{$DATASHEET.downloadfilelocation}|file  or  directory                                  |
 |End If                                                                                                          |
 
-!|Scenario            |verify tearoffs                                                        |
+!| Scenario           |verify tearoffs                                                        |
 |pause  execution  for|10                  |seconds                                           |
 |navigate to draft                                                                            |
 |delete mail from draft                                                                       |
@@ -237,20 +234,29 @@
 |verify               |{$mailSubject}      |with             |{$body}                         |
 |assert               |{$isEquals}         |true with message|Verify mail subject is unchanged|
 
-
-!|Scenario  |navigate to draft                            |
+!| Scenario |navigate to draft                            |
 |clear  text|{$INBOX.searchfield}                         |
 |type       |in:draft|into|{$INBOX.searchfield}|text field|
 |click      |{$INBOX.serchbutton}                         |
 
+!| Scenario           |navigate to Forums Section|
+|pause  execution  for|5         |seconds        |
+|wait  for  element   |{$GMAIL.inbox}            |
+|click                |{$GMAIL.inbox}            |
+|wait  for  element   |{$FORUMS.fourmstab}       |
+|click                |{$FORUMS.fourmstab}       |
 
-!|Scenario  |navigate to inbox                            |
-|clear  text|{$INBOX.searchfield}                         |
-|type       |in:inbox|into|{$INBOX.searchfield}|text field|
-|click      |{$INBOX.serchbutton}                         |
+!| Scenario           |compose mail with filter subject                         |
+|pause  execution  for|3                  |seconds                              |
+|click                |{$GMAIL.composebutton}                                   |
+|wait  for  element   |{$GMAIL.tofield}                                         |
+|enter recepient      |{$recepient}                                             |
+|type                 |Automation Testcase|into|{$GMAIL.subjectfield}|text field|
+|type                 |{$body}            |into|{$GMAIL.bodyarea}    |text field|
+|pause  execution  for|6                  |seconds                              |
+|click                |{$GMAIL.sendbutton}                                      |
 
-
-!|Scenario            |delete mail from draft               |
+!| Scenario           |delete mail from draft               |
 |variable             |isPresent                 |equals  to|
 |verify page contains |{DRAFT.checknomailbox}    |element   |
 |variable             |condition                 |equals  to|
@@ -267,6 +273,19 @@
 |pause  execution  for|5                         |seconds   |
 |End If                                                     |
 
+!| Scenario           |delete existed mail in filter section                               |
+|variable             |checkinbox            |equals  to                                   |
+|verify page contains |{$FILTER.mail}        |element                                      |
+|If                   |{$checkinbox}                                                       |
+|assert               |{$checkinbox}         |true with message|your forum tab is not empty|
+|focus and click      |{$FILTER.selectbutton}                                              |
+|pause  execution  for|3                     |seconds                                      |
+|click                |{$FILTER.selectall}                                                 |
+|pause  execution  for|3                     |seconds                                      |
+|verify page contains |{$FILTER.deletebuttons}|element                                      |
+|click                |{$FILTER.deletebuttons}                                              |
+|pause  execution  for|3                     |seconds                                      |
+|End If                                                                                    |
 
 !| Scenario           |verify search                                                            |
 |select               |Default                 |frame                                           |
@@ -292,3 +311,62 @@
 |verify  whether      |{$defaultval}           |is  present  in  |{$rowval}          |string    |
 |assert               |{$ispresent}            |true with message|List contains search data     |
 |pause  execution  for|3                       |seconds                                         |
+
+!| Scenario       |verify filters       |
+|navigate to Forums Section             |
+|delete existed mail in filter section  |
+|navigate to filter link                |
+|delete existed filters                 |
+|create a new filters                   |
+|compose mail with filter subject       |
+|navigate to Forums Section             |
+|verify subject of mail in Forum Section|
+
+!| Scenario        |navigate to filter link|
+|wait  for  element|{$SETTING.button}      |
+|focus and click   |{$SETTING.button}      |
+|wait  for  element|{$SETTING.link}        |
+|click             |{$SETTING.link}        |
+|wait  for  element|{$SETTING.Filterlink}  |
+|click             |{$SETTING.Filterlink}  |
+
+!| Scenario           |delete existed filters                 |
+|variable             |isdelteiconPresent  |equals  to        |
+|verify page contains |{$FILTER.deletelink}|element           |
+|If                   |{$isdelteiconPresent}                  |
+|click                |{$FILTER.selectalllink}                |
+|pause  execution  for|3                   |seconds           |
+|click                |{$FILTER.deletebutton}                 |
+|pause  execution  for|3                   |seconds           |
+|send robot           |TAB,TAB,ENTER       |key               |
+|                     |wait  for  element  |{$FILTER.okbutton}|
+|                     |click               |{$FILTER.okbutton}|
+|End If                                                       |
+|pause  execution  for|3                   |seconds           |
+
+!| Scenario           |create a new filters                                       |
+|click                |{$FILTER.createfilterlink}                                 |
+|type                 |Automation Testcase  |into|{$FILTER.subjecttext}|text field|
+|click                |{$FILTER.createfiltersearchlink}                           |
+|pause  execution  for|2                    |seconds                              |
+|click                |{$FILTER.categorizecheckbox}                               |
+|send robot           |TAB,ENTER            |key                                  |
+|wait  for  element   |{$FILTER.promotionsdropdown}                               |
+|click                |{$FILTER.forumsdropdown}                                   |
+|pause  execution  for|5                    |seconds                              |
+|click                |{$FILTER.createfilterbutton}                               |
+|pause  execution  for|5                    |seconds                              |
+|verify page contains |{$FILTER.filterpopup}|element                              |
+
+|Scenario            |verify subject of mail in Forum Section|                                                                  |
+|variable            |inboxcontent                           |equals  to                                                        |
+|verify page contains|{$FILTER.unreadmail}                   |element                                                           |
+|If                  |{$inboxcontent}                                                                                           |
+|assert              |{$inboxcontent}                        |true with message|your forum tab is not empty                     |
+|click               |{$FILTER.unreadmail}                                                                                      |
+|variable            |msgsubject                             |equals  to                                                        |
+|get  text  from     |{$FILTER.subjectcontent}               |text  area                                                        |
+|assert              |{$msgsubject}                          |equals           |Automation Testcase                             |
+|Else                                                                                                                           |
+|assert false        |Filter is not working properly                                                                            |
+|End If                                                                                                                         |
