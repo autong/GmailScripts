@@ -273,19 +273,19 @@
 |pause  execution  for|5                         |seconds   |
 |End If                                                     |
 
-!| Scenario           |delete existed mail in filter section                               |
-|variable             |checkinbox            |equals  to                                   |
-|verify page contains |{$FILTER.mail}        |element                                      |
-|If                   |{$checkinbox}                                                       |
-|assert               |{$checkinbox}         |true with message|your forum tab is not empty|
-|focus and click      |{$FILTER.selectbutton}                                              |
-|pause  execution  for|3                     |seconds                                      |
-|click                |{$FILTER.selectall}                                                 |
-|pause  execution  for|3                     |seconds                                      |
+!| Scenario           |delete existed mail in filter section                                |
+|variable             |checkinbox             |equals  to                                   |
+|verify page contains |{$FILTER.mail}         |element                                      |
+|If                   |{$checkinbox}                                                        |
+|assert               |{$checkinbox}          |true with message|your forum tab is not empty|
+|focus and click      |{$FILTER.selectbutton}                                               |
+|pause  execution  for|3                      |seconds                                      |
+|click                |{$FILTER.selectall}                                                  |
+|pause  execution  for|3                      |seconds                                      |
 |verify page contains |{$FILTER.deletebuttons}|element                                      |
 |click                |{$FILTER.deletebuttons}                                              |
-|pause  execution  for|3                     |seconds                                      |
-|End If                                                                                    |
+|pause  execution  for|3                      |seconds                                      |
+|End If                                                                                     |
 
 !| Scenario           |verify search                                                            |
 |select               |Default                 |frame                                           |
@@ -310,7 +310,7 @@
 |variable             |ispresent               |equals  to                                      |
 |verify  whether      |{$defaultval}           |is  present  in  |{$rowval}          |string    |
 |assert               |{$ispresent}            |true with message|List contains search data     |
-|pause  execution  for|3                       |seconds                                         |
+|pause  execution  for|2                       |seconds                                         |
 
 
 !| Scenario       |verify filters       |
@@ -359,18 +359,18 @@
 |pause  execution  for|5                    |seconds                              |
 |verify page contains |{$FILTER.filterpopup}|element                              |
 
-|Scenario            |verify subject of mail in Forum Section|                                                                  |
-|variable            |inboxcontent                           |equals  to                                                        |
-|verify page contains|{$FILTER.unreadmail}                   |element                                                           |
-|If                  |{$inboxcontent}                                                                                           |
-|assert              |{$inboxcontent}                        |true with message|your forum tab is not empty                     |
-|click               |{$FILTER.unreadmail}                                                                                      |
-|variable            |msgsubject                             |equals  to                                                        |
-|get  text  from     |{$FILTER.subjectcontent}               |text  area                                                        |
-|assert              |{$msgsubject}                          |equals           |Automation Testcase                             |
-|Else                                                                                                                           |
-|assert false        |Filter is not working properly                                                                            |
-|End If                                                                                                                         |
+|Scenario            |verify subject of mail in Forum Section|                                             |
+|variable            |inboxcontent                           |equals  to                                   |
+|verify page contains|{$FILTER.unreadmail}                   |element                                      |
+|If                  |{$inboxcontent}                                                                      |
+|assert              |{$inboxcontent}                        |true with message|your forum tab is not empty|
+|click               |{$FILTER.unreadmail}                                                                 |
+|variable            |msgsubject                             |equals  to                                   |
+|get  text  from     |{$FILTER.subjectcontent}               |text  area                                   |
+|assert              |{$msgsubject}                          |equals           |Automation Testcase        |
+|Else                                                                                                      |
+|assert false        |Filter is not working properly                                                       |
+|End If                                                                                                    |
 
 
 !| Scenario           |verify multithread                                                          |
@@ -401,3 +401,109 @@
 |assert               |{$finalVal}    |true with message|Received mail verified successfully       |
 |End If                                                                                            |
 
+!| Scenario           |compose mail for delete                                                 |
+|pause  execution  for|2                                 |seconds                              |
+|click                |{$GMAIL.composebutton}                                                  |
+|wait  for  element   |{$GMAIL.tofield}                                                        |
+|enter recepient      |{$recepient}                                                            |
+|type                 |Delete mail test                  |into|{$GMAIL.subjectfield}|text field|
+|type                 |This is body for delete mail test.|into|{$GMAIL.bodyarea}    |text field|
+|pause  execution  for|3                                 |seconds                              |
+|click                |{$GMAIL.sendbutton}                                                     |
+|pause  execution  for|3                                 |seconds                              |
+
+!| Scenario           |empty trash                                            |
+|pause  execution  for|2                  |seconds                            |
+|wait  for  element   |{$SEARCH.inputtext}                                    |
+|type                 |in:trash           |into|{$SEARCH.inputtext}|text field|
+|wait  for  element   |{$SEARCH.button}                                       |
+|click                |{$SEARCH.button}                                       |
+|pause  execution  for|2                  |seconds                            |
+|variable             |isNotEmpty         |equals  to                         |
+|verify page contains |{$TRASH.emptytrash}|element                            |
+|If                   |{$isNotEmpty}                                          |
+|click                |{$TRASH.emptytrash}                                    |
+|pause  execution  for|2                  |seconds                            |
+|wait  for  element   |{$TRASH.alertheading}                                  |
+|click                |{$TRASH.alertbutton}                                   |
+|pause  execution  for|3                  |seconds                            |
+|End If                                                                       |
+|click                |{$MULTITHREAD.inboxlink}                               |
+|refresh  browser                                                             |
+|pause  execution  for|5                  |seconds                            |
+
+
+!| Scenario           |goto trash                                  |
+|pause  execution  for|2       |seconds                            |
+|wait  for  element   |{$SEARCH.inputtext}                         |
+|type                 |in:trash|into|{$SEARCH.inputtext}|text field|
+|wait  for  element   |{$SEARCH.button}                            |
+|click                |{$SEARCH.button}                            |
+|pause  execution  for|2       |seconds                            |
+
+!| Scenario           |verify vertical split                                         |
+|pause  execution  for|1                    |seconds                                 |
+|wait  for  element   |{$TOOLSPLIT.selectbox}                                        |
+|focus and click      |{$TOOLSPLIT.selectbox}                                        |
+|pause  execution  for|1                    |seconds                                 |
+|wait  for  element   |{$TOOLSPLIT.selectvertical}                                   |
+|click                |{$TOOLSPLIT.selectvertical}                                   |
+|wait  for  element   |{$TOOLSPLIT.mailvertical}                                     |
+|click                |{$TOOLSPLIT.mailvertical}                                     |
+|pause  execution  for|1                    |seconds                                 |
+|variable             |isSplit              |equals  to                              |
+|verify page contains |{$TOOLSPLIT.mailhead}|element                                 |
+|assert               |{$isSplit}           |true with message|Vertical Split Success|
+|pause  execution  for|2                    |seconds                                 |
+
+!| Scenario           |verify horizontal split                                         |
+|pause  execution  for|1                    |seconds                                   |
+|wait  for  element   |{$TOOLSPLIT.selectbox}                                          |
+|focus and click      |{$TOOLSPLIT.selectbox}                                          |
+|pause  execution  for|1                    |seconds                                   |
+|wait  for  element   |{$TOOLSPLIT.selecthorizontal}                                   |
+|click                |{$TOOLSPLIT.selecthorizontal}                                   |
+|wait  for  element   |{$TOOLSPLIT.mailhorizontal}                                     |
+|click                |{$TOOLSPLIT.mailhorizontal}                                     |
+|pause  execution  for|1                    |seconds                                   |
+|variable             |isSplit              |equals  to                                |
+|verify page contains |{$TOOLSPLIT.mailhead}|element                                   |
+|assert               |{$isSplit}           |true with message|Horizontal Split Success|
+|pause  execution  for|2                    |seconds                                   |
+
+!| Scenario           |return to no split        |
+|pause  execution  for|1         |seconds        |
+|wait  for  element   |{$TOOLSPLIT.selectbox}    |
+|focus and click      |{$TOOLSPLIT.selectbox}    |
+|pause  execution  for|1         |seconds        |
+|wait  for  element   |{$TOOLSPLIT.selectnosplit}|
+|click                |{$TOOLSPLIT.selectnosplit}|
+|pause  execution  for|2         |seconds        |
+
+!| Scenario            |verify toolbar                                   |
+|select                |Default           |frame                         |
+|empty trash                                                             |
+|compose mail for delete                                                 |
+|pause  execution  for |2                 |seconds                       |
+|wait  for  element    |{$TOOL.unreadmail}                               |
+|click                 |{$TOOL.unreadmail}                               |
+|click                 |{$MULTITHREAD.inboxlink}                         |
+|pause  execution  for |2                 |seconds                       |
+|verify vertical split                                                   |
+|verify horizontal split                                                 |
+|return to no split                                                      |
+|variable              |gotMail           |equals  to                    |
+|verify page contains  |{$TOOL.deletemail}|element                       |
+|If                    |{$gotMail}                                       |
+|click                 |{$TOOL.deletemail}                               |
+|pause  execution  for |2                 |seconds                       |
+|focus and click       |{$TOOL.deletebutton}                             |
+|End If                                                                  |
+|goto trash                                                              |
+|pause  execution  for |2                 |seconds                       |
+|variable              |checkTrash        |equals  to                    |
+|verify  page  contains|Delete mail test  |text                          |
+|assert                |{$checkTrash}     |true with message|Mail Deleted|
+|pause  execution  for |2                 |seconds                       |
+|click                 |{$MULTITHREAD.inboxlink}                         |
+|pause  execution  for |2                 |seconds                       |

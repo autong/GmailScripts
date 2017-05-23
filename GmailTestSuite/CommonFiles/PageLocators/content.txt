@@ -103,7 +103,7 @@
 |mail                  |(//*[contains(text(),'Automation Testcase')] )[3]                                                       |xpath|
 |selectbutton          |//div[@aria-label='Select']                                                                             |xpath|
 |selectall             |(//div[@selector='all'])[1]                                                                             |xpath|
-|deletebuttons          |//div[@aria-label='Delete']/div/div                                                                     |xpath|
+|deletebuttons         |//div[@aria-label='Delete']/div/div                                                                     |xpath|
 |categorizecheckbox    |//label[contains(text(),'Categorize as:')]/preceding-sibling::input                                     |xpath|
 |promotionsdropdown    |//label[contains(text(),'Categorize as:')]/parent::div/div[@role='listbox']/div/div[text()='Promotions']|xpath|
 |forumsdropdown        |//label[contains(text(),'Categorize as:')]/parent::div/div[@role='listbox']/div/div[text()='Forums']    |xpath|
@@ -124,14 +124,14 @@
 |select           |.//div[contains(@aria-label,'Dark')]                            |xpath|
 |save             |.//div[contains(text(),'Save')]                                 |xpath|
 
-|Object Repository|SEARCH                                                                                     |
-|Id               |Value                                                                                |Type |
-|inputtext        |.//input[contains(@type,'text') and contains(@aria-label,'Search')]                  |xpath|
-|button           |.//button[contains(@aria-label,'Search Gmail')]                                      |xpath|
-|options          |.//div[contains(@role,'button') and contains(@data-tooltip,'Show search options')]   |xpath|
-|extrainputtext   |.//input[contains(@type,'text') and contains(@value,'Test Email')]                   |xpath|
-|innerbutton      |.//div[contains(@role,'button') and contains(@data-tooltip,'Search Mail')]           |xpath|
-|mailval          |(.//div[contains(@role,'main')]//table)[1]/tbody/tr[1]/td/div[contains(@role,'link')]|xpath|
+|Object Repository|SEARCH                                                                                                                            |
+|Id               |Value                                                                                                                       |Type |
+|inputtext        |.//input[contains(@type,'text') and contains(@aria-label,'Search')]                                                         |xpath|
+|button           |.//button[contains(@aria-label,'Search Gmail')]                                                                             |xpath|
+|options          |.//div[contains(@role,'button') and contains(@data-tooltip,'Show search options')]                                          |xpath|
+|extrainputtext   |.//input[contains(@type,'text') and contains(@value,'Test Email')]                                                          |xpath|
+|innerbutton      |.//div[contains(@role,'button') and contains(@data-tooltip,'Search Mail')]                                                  |xpath|
+|mailval          |((.//div[contains(@role,'main')]//table)[1]/tbody/tr/td/div[contains(@role,'link')]//span[contains(text(),'Test Email')])[1]|xpath|
 
 |Object Repository|MULTITHREAD                                                                                                                                              |
 |Id               |Value                                                                                                                                              |Type |
@@ -143,3 +143,27 @@
 |sendreply        |.//div[contains(@role,'button') and contains(text(),'Send')]                                                                                       |xpath|
 |inboxlink        |.//a[contains(text(),'Inbox')]                                                                                                                     |xpath|
 |threadtext       |(.//div[contains(@role,'listitem')][last()]//div[contains(text(),'One more')])[1]                                                                  |xpath|
+
+
+|Object Repository|TOOL                                                                                                                                                               |
+|Id               |Value                                                                                                                                                        |Type |
+|unreadmail       |(.//div[contains(@role,'main')]//table)[2]/tbody/tr/td/div[contains(@role,'link')]//span/b[contains(text(),'Delete mail test')]                              |xpath|
+|deletemail       |((.//div[contains(@role,'main')]//table)[2]/tbody/tr/td/div[contains(@role,'link')]//span[contains(text(),'Delete mail test')]/ancestor::td/../td[2])[last()]|xpath|
+|deletebutton     |.//div[contains(@role,'button') and contains(@title,'Delete')]                                                                                               |xpath|
+
+
+|Object Repository|TRASH                                                                                    |
+|Id               |Value                                                                              |Type |
+|emptytrash       |.//span[contains(@role,'button') and contains(text(),'Empty Trash now')]           |xpath|
+|alertheading     |.//span[contains(@role,'heading') and contains(text(),'Confirm deleting messages')]|xpath|
+|alertbutton      |.//button[contains(@name,'ok') and contains(text(),'OK')]                          |xpath|
+
+|Object Repository|TOOLSPLIT                                                                                                                                    |
+|Id               |Value                                                                                                                                  |Type |
+|selectbox        |.//div[contains(@role,'button') and contains(@aria-label,'Toggle split pane mode')]/../div[2]                                          |xpath|
+|selectvertical   |.//div[contains(@role,'menuitem') and contains(@selector,'vertical')]                                                                  |xpath|
+|selecthorizontal |.//div[contains(@role,'menuitem') and contains(@selector,'horizontal')]                                                                |xpath|
+|selectnosplit    |.//div[contains(@role,'menuitem') and contains(@selector,'nosplit')]                                                                   |xpath|
+|mailvertical     |((.//div[contains(@role,'main')]//table)[2]/tbody/tr/td[contains(@role,'link')]//span[contains(text(),'Delete mail test')])[last()]    |xpath|
+|mailhorizontal   |((.//div[contains(@role,'main')]//table)[2]/tbody/tr/td/div[contains(@role,'link')]//span[contains(text(),'Delete mail test')])[last()]|xpath|
+|mailhead         |.//h2[contains(text(),'Delete mail test')]                                                                                             |xpath|
