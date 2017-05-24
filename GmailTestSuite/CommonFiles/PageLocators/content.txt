@@ -117,12 +117,13 @@
 |popup            |.//div[contains(text(),'Test Testing') and contains(@role,'heading')]|xpath|
 |popupclose       |.//div[contains(@aria-label,'Close')]                                |xpath|
 
-|Object Repository|THEME                                                                 |
-|Id               |Value                                                           |Type |
-|button           |.//div[contains(@role,'button') and contains(@title,'Settings')]|xpath|
-|link             |.//div[contains(text(),'Themes')]                               |xpath|
-|select           |.//div[contains(@aria-label,'Dark')]                            |xpath|
-|save             |.//div[contains(text(),'Save')]                                 |xpath|
+|Object Repository|THEME                                                                                                                   |
+|Id               |Value                                                                                                             |Type |
+|button           |.//div[contains(@role,'button') and contains(@title,'Settings')]                                                  |xpath|
+|link             |.//div[contains(text(),'Themes')]                                                                                 |xpath|
+|listpopup        |.//div[contains(@role,'alertdialog')]/div[1]/span[contains(@role,'heading') or contains(text(),'Pick your theme')]|xpath|
+|select           |.//div[contains(@aria-label,'Dark')]                                                                              |xpath|
+|save             |.//div[contains(text(),'Save')]                                                                                   |xpath|
 
 |Object Repository|SEARCH                                                                                                                            |
 |Id               |Value                                                                                                                       |Type |

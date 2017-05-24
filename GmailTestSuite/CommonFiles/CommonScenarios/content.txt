@@ -156,34 +156,45 @@
 |click                |{$SETTING.responderendlink}                                                                                                                           |
 |pause  execution  for|3                                                                                            |seconds                                                 |
 
-!| Scenario            |verify contact view                                             |
-|select                |Default       |frame                                            |
-|wait  for  element    |{$CONTACT.navlink}                                              |
-|click                 |{$CONTACT.navlink}                                              |
-|wait  for  element    |{$CONTACT.link}                                                 |
-|click                 |{$CONTACT.link}                                                 |
-|select  window  number|2                                                               |
-|wait  for  element    |{$CONTACT.list}                                                 |
-|click                 |{$CONTACT.list}                                                 |
-|variable              |contactview   |equals  to                                       |
-|wait  for  element    |{$CONTACT.popup}                                                |
-|assert                |{$contactview}|true with message|Contact view opens successfully|
-|pause  execution  for |2             |seconds                                          |
-|click                 |{$CONTACT.popupclose}                                           |
-|close  window  number |2                                                               |
+!| Scenario            |verify contact view                                              |
+|select                |Default        |frame                                            |
+|wait  for  element    |{$CONTACT.navlink}                                               |
+|click                 |{$CONTACT.navlink}                                               |
+|wait  for  element    |{$CONTACT.link}                                                  |
+|click                 |{$CONTACT.link}                                                  |
+|select  window  number|2                                                                |
+|wait  for  element    |{$CONTACT.list}                                                  |
+|variable              |verifyList     |equals  to                                       |
+|verify page contains  |{$CONTACT.list}|element                                          |
+|assert                |{$verifyList}  |true with message|Contact list success           |
+|click                 |{$CONTACT.list}                                                  |
+|variable              |contactview    |equals  to                                       |
+|wait  for  element    |{$CONTACT.popup}                                                 |
+|assert                |{$contactview} |true with message|Contact view opens successfully|
+|pause  execution  for |2              |seconds                                          |
+|click                 |{$CONTACT.popupclose}                                            |
+|close  window  number |2                                                                |
 
-!| Scenario           |verify theme change|
-|select               |Default  |frame    |
-|wait  for  element   |{$THEME.button}    |
-|focus and click      |{$THEME.button}    |
-|wait  for  element   |{$THEME.link}      |
-|click                |{$THEME.link}      |
-|wait  for  element   |{$THEME.select}    |
-|scroll to            |{$THEME.select}    |
-|click                |{$THEME.select}    |
-|pause  execution  for|3        |seconds  |
-|click                |{$THEME.save}      |
-|pause  execution  for|2        |seconds  |
+!| Scenario           |verify theme change                                                |
+|select               |Default           |frame                                           |
+|wait  for  element   |{$THEME.button}                                                    |
+|focus and click      |{$THEME.button}                                                    |
+|wait  for  element   |{$THEME.link}                                                      |
+|click                |{$THEME.link}                                                      |
+|pause  execution  for|3                 |seconds                                         |
+|wait  for  element   |{$THEME.listpopup}                                                 |
+|variable             |listPopup         |equals  to                                      |
+|verify page contains |{$THEME.listpopup}|element                                         |
+|assert               |{$listPopup}      |true with message|Theme list popups successfully|
+|wait  for  element   |{$THEME.select}                                                    |
+|scroll to            |{$THEME.select}                                                    |
+|click                |{$THEME.select}                                                    |
+|variable             |selTheme          |equals  to                                      |
+|verify page contains |{$THEME.select}   |element                                         |
+|assert               |{$selTheme}       |true with message|Theme list popups successfully|
+|pause  execution  for|3                 |seconds                                         |
+|click                |{$THEME.save}                                                      |
+|pause  execution  for|2                 |seconds                                         |
 
 !| Scenario              |verify attachments                                                                     |
 |variable                |fileExists                       |equals  to                                           |
@@ -412,25 +423,26 @@
 |click                |{$GMAIL.sendbutton}                                                     |
 |pause  execution  for|3                                 |seconds                              |
 
-!| Scenario           |empty trash                                            |
-|pause  execution  for|2                  |seconds                            |
-|wait  for  element   |{$SEARCH.inputtext}                                    |
-|type                 |in:trash           |into|{$SEARCH.inputtext}|text field|
-|wait  for  element   |{$SEARCH.button}                                       |
-|click                |{$SEARCH.button}                                       |
-|pause  execution  for|2                  |seconds                            |
-|variable             |isNotEmpty         |equals  to                         |
-|verify page contains |{$TRASH.emptytrash}|element                            |
-|If                   |{$isNotEmpty}                                          |
-|click                |{$TRASH.emptytrash}                                    |
-|pause  execution  for|2                  |seconds                            |
-|wait  for  element   |{$TRASH.alertheading}                                  |
-|click                |{$TRASH.alertbutton}                                   |
-|pause  execution  for|3                  |seconds                            |
-|End If                                                                       |
-|click                |{$MULTITHREAD.inboxlink}                               |
-|refresh  browser                                                             |
-|pause  execution  for|5                  |seconds                            |
+!| Scenario           |empty trash                                                         |
+|pause  execution  for|2                  |seconds                                         |
+|wait  for  element   |{$SEARCH.inputtext}                                                 |
+|type                 |in:trash           |into             |{$SEARCH.inputtext}|text field|
+|wait  for  element   |{$SEARCH.button}                                                    |
+|click                |{$SEARCH.button}                                                    |
+|pause  execution  for|2                  |seconds                                         |
+|variable             |isNotEmpty         |equals  to                                      |
+|verify page contains |{$TRASH.emptytrash}|element                                         |
+|If                   |{$isNotEmpty}                                                       |
+|assert               |{$isNotEmpty}      |true with message|Emptying trash                |
+|click                |{$TRASH.emptytrash}                                                 |
+|pause  execution  for|2                  |seconds                                         |
+|wait  for  element   |{$TRASH.alertheading}                                               |
+|click                |{$TRASH.alertbutton}                                                |
+|pause  execution  for|3                  |seconds                                         |
+|End If                                                                                    |
+|click                |{$MULTITHREAD.inboxlink}                                            |
+|refresh  browser                                                                          |
+|pause  execution  for|5                  |seconds                                         |
 
 
 !| Scenario           |goto trash                                  |
