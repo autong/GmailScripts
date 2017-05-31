@@ -4,11 +4,10 @@
 ----
 '''Test Steps'''
 1. Open the google mail
-2. Open compose mail section
-3. Attach a file from google drive  
-4. Attach a photo from google photos
-5. Send the mail to self
-6. Verify if the mail has arrived
+2. Hover on a contact on chat window
+3. Verify chat contact float box
+4. Start chat with the contact
+5. Send  a text message to the contact
 
 '''Pre condition for script execution'''
 Test URL: https://mail.google.com/
@@ -23,16 +22,15 @@ Not applicable
 
 
 
-!|Script                   |AutomationNG                                                    |
-|set test                  |${PAGE_NAME}                                                    |
-|set result name           |${PAGE_NAME}       |at path               |${PAGE_PATH}         |
-|start browser and open url|https://www.gmail.com                                           |
-|read gmail data from excel sheet                                                           |
-|                          |login with username|testemail744@gmail.com|and password|test@744|
-|pause  execution  for     |15                 |seconds                                     |
-|                          |verify login action                                             |
-|verify chat                                                                                |
-|close browser                                                                              |
+!|Script                   |AutomationNG                                    |
+|set test                  |${PAGE_NAME}                                    |
+|set result name           |${PAGE_NAME}          |at path     |${PAGE_PATH}|
+|start browser and open url|https://www.gmail.com                           |
+|read gmail data from excel sheet                                           |
+|login with username       |testemail744@gmail.com|and password|test@744    |
+|verify login action                                                        |
+|verify chat                                                                |
+|close browser                                                              |
 
 
 

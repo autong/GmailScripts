@@ -1,15 +1,30 @@
 |import                          |
 |net.indecomm.autong.api.fitnesse|
 
+----
+'''Test Steps'''
+1. Open the google mail
+2. Select a mail
+3. Perform inline reply
+4. Verify mulit-thread view
+
+
+'''Pre condition for script execution'''
+Test URL: https://mail.google.com/
+
+
+'''Post execution instructions'''
+Not applicable
+----
+
 !include -c <GmailTestSuite.CommonLibraries
 
-!|Script                   |AutomationNG                                                    |
-|set test                  |${PAGE_NAME}                                                    |
-|set result name           |${PAGE_NAME}       |at path               |${PAGE_PATH}         |
-|start browser and open url|https://www.gmail.com                                           |
-|read gmail data from excel sheet                                                           |
-|                          |login with username|testemail744@gmail.com|and password|test@744|
-|pause  execution  for     |15                 |seconds                                     |
-|                          |verify login action                                             |
-|verify multithread                                                                         |
-|close browser                                                                              |
+!|Script                   |AutomationNG                                    |
+|set test                  |${PAGE_NAME}                                    |
+|set result name           |${PAGE_NAME}          |at path     |${PAGE_PATH}|
+|start browser and open url|https://www.gmail.com                           |
+|read gmail data from excel sheet                                           |
+|login with username       |testemail744@gmail.com|and password|test@744    |
+|verify login action                                                        |
+|verify multithread                                                         |
+|close browser                                                              |

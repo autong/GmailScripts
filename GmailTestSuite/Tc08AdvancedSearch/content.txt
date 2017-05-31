@@ -1,15 +1,32 @@
 |import                          |
 |net.indecomm.autong.api.fitnesse|
 
+----
+'''Test Steps'''
+1. Open the google mail
+2. Enter search text
+3. Open advanced search section and verify the search text exists
+4. Click search in advanced search section 
+5. Verify the results contain search data
+
+
+'''Pre condition for script execution'''
+Test URL: https://mail.google.com/
+
+
+'''Post execution instructions'''
+Not applicable
+----
+
+
 !include -c <GmailTestSuite.CommonLibraries
 
-!|Script                   |AutomationNG                                                    |
-|set test                  |${PAGE_NAME}                                                    |
-|set result name           |${PAGE_NAME}       |at path               |${PAGE_PATH}         |
-|start browser and open url|https://www.gmail.com                                           |
-|read gmail data from excel sheet                                                           |
-|                          |login with username|testemail744@gmail.com|and password|test@744|
-|pause  execution  for     |15                 |seconds                                     |
-|                          |verify login action                                             |
-|verify search                                                                              |
-|close browser                                                                              |
+!|Script                   |AutomationNG                                    |
+|set test                  |${PAGE_NAME}                                    |
+|set result name           |${PAGE_NAME}          |at path     |${PAGE_PATH}|
+|start browser and open url|https://www.gmail.com                           |
+|read gmail data from excel sheet                                           |
+|login with username       |testemail744@gmail.com|and password|test@744    |
+|verify login action                                                        |
+|verify search                                                              |
+|close browser                                                              |

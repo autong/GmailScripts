@@ -4,10 +4,10 @@
 ----
 '''Test Steps'''
 1. Open the google mail
-2. Open a mail with attachment
-3. Open attachment  
-4. Click on download button
-5. Verify file is downloaded
+2. Navigate to filter settings
+3. Create a filter
+4. Verify created filter functionality 
+
 
 '''Pre condition for script execution'''
 Test URL: https://mail.google.com/
@@ -20,8 +20,6 @@ Not applicable
 
 !include -c <GmailTestSuite.CommonLibraries
 
-
-
 !|Script                   |AutomationNG                                    |
 |set test                  |${PAGE_NAME}                                    |
 |set result name           |${PAGE_NAME}          |at path     |${PAGE_PATH}|
@@ -29,5 +27,8 @@ Not applicable
 |read gmail data from excel sheet                                           |
 |login with username       |testemail744@gmail.com|and password|test@744    |
 |verify login action                                                        |
-|verify attachments                                                         |
+|verify filters                                                             |
 |close browser                                                              |
+
+
+

@@ -9,21 +9,32 @@
 |maximize browser                              |
 |open URL     |@url                            |
 
-!| Scenario          |login with username _ and password _|username,password                     |
-|type                |@username                           |into|{$LOGIN.usernamefield}|text field|
-|set page time out   |1                                                                          |
-|variable            |passwordExists                      |equals  to                            |
-|verify page contains|{$LOGIN.passwordfield}              |element                               |
-|set page time out   |30                                                                         |
-|If                  |{$passwordExists}                                                          |
-|type                |@password                           |into|{$LOGIN.passwordfield}|text field|
-|click               |{$LOGIN.loginbutton}                                                       |
-|Else                                                                                            |
-|click               |{$LOGIN.nextbutton}                                                        |
-|wait  for  element  |{$LOGIN.passwordfield}                                                     |
-|type                |@password                           |into|{$LOGIN.passwordfield}|text field|
-|click               |{$LOGIN.loginbutton}                                                       |
-|End If                                                                                          |
+!| Scenario           |login with username _ and password _|username,password                         |
+|type                 |@username                           |into|{$LOGIN.usernamefield}    |text field|
+|set page time out    |1                                                                              |
+|variable             |passwordExists                      |equals  to                                |
+|verify page contains |{$LOGIN.passwordfield}              |element                                   |
+|set page time out    |30                                                                             |
+|If                   |{$passwordExists}                                                              |
+|type                 |@password                           |into|{$LOGIN.passwordfield}    |text field|
+|click                |{$LOGIN.loginbutton}                                                           |
+|Else                                                                                                 |
+|click                |{$LOGIN.nextbutton}                                                            |
+|wait  for  element   |{$LOGIN.passwordfield}                                                         |
+|type                 |@password                           |into|{$LOGIN.passwordfield}    |text field|
+|click                |{$LOGIN.loginbutton}                                                           |
+|pause  execution  for|5                                   |seconds                                   |
+|set page time out    |1                                                                              |
+|variable             |recoveryMailExists                  |equals  to                                |
+|verify page contains |{$LOGIN.confirmrecoverymailbutton}  |element                                   |
+|set page time out    |30                                                                             |
+|If                   |{$recoveryMailExists}                                                          |
+|click                |{$LOGIN.confirmrecoverymailbutton}                                             |
+|wait  for  element   |{$LOGIN.recoverymailfield}                                                     |
+|type                 |bhagavan.kailar@gmail.com           |into|{$LOGIN.recoverymailfield}|text field|
+|click                |{$LOGIN.recoverynextbutton}                                                    |
+|End If                                                                                               |
+|End If                                                                                               |
 
 !| Scenario      |verify login action                                      |
 |variable        |loginSuccess   |equals to                                |
@@ -39,14 +50,18 @@
 |enter bcc               |{$bcc}                                          |
 |type                    |{$subject}|into|{$GMAIL.subjectfield}|text field|
 |type                    |{$body}   |into|{$GMAIL.bodyarea}    |text field|
+|verify formating                                                         |
 |attach from drive       |{$driveFile}                                    |
 |attach photo from photos|{$photo}                                        |
 |pause  execution  for   |6         |seconds                              |
+|click                   |{$GMAIL.sendbutton}                             |
+|verify undo                                                              |
 |click                   |{$GMAIL.sendbutton}                             |
 |verify email sent                                                        |
 |verify email has arrived                                                 |
 
 !| Scenario           |enter recepient|rec                            |
+|clear  text          |{$GMAIL.tofield}                               |
 |type                 |@rec           |into|{$GMAIL.tofield}|text area|
 |pause  execution  for|1              |seconds                        |
 
@@ -74,6 +89,27 @@
 |click                |(.//span[text()='@file'])[2]                                                                    |
 |click                |(.//div[text()='Insert'])[2]                                                                    |
 |select               |Default                                    |frame                                               |
+
+!|Scenario            |verify formating                                                             |
+|send robot           |CONTROL,A                           |key                                     |
+|click                |{$GMAIL.formattogglebutton}                                                  |
+|pause  execution  for|2                                   |seconds                                 |
+|click                |{$GMAIL.boldformatbutton}                                                    |
+|variable             |isFormatted                         |equals  to                              |
+|verify page contains |.//div[@aria-label='Message Body']/b|element                                 |
+|assert               |{$isFormatted}                      |true with message|Text formatted as bold|
+|click                |{$GMAIL.boldformatbutton}                                                    |
+|click                |{$GMAIL.formattogglebutton}                                                  |
+
+!|Scenario           |verify undo                                                    |
+|variable            |undoButtonExists   |equals  to                                 |
+|wait  for  element  |{$GMAIL.undolink}                                              |
+|assert              |{$undoButtonExists}|true with message|Verify undo option exists|
+|click               |{$GMAIL.undolink}                                              |
+|variable            |isUndone           |equals  to                                 |
+|verify page contains|{$GMAIL.sendbutton}|element                                    |
+|assert              |{$isUndone}        |true with message|Verify undo action       |
+
 
 !| Scenario        |verify email sent                                              |
 |variable          |mailSentSuccess   |equals  to                                  |
@@ -156,45 +192,70 @@
 |click                |{$SETTING.responderendlink}                                                                                                                           |
 |pause  execution  for|3                                                                                            |seconds                                                 |
 
-!| Scenario            |verify contact view                                              |
-|select                |Default        |frame                                            |
-|wait  for  element    |{$CONTACT.navlink}                                               |
-|click                 |{$CONTACT.navlink}                                               |
-|wait  for  element    |{$CONTACT.link}                                                  |
-|click                 |{$CONTACT.link}                                                  |
-|select  window  number|2                                                                |
-|wait  for  element    |{$CONTACT.list}                                                  |
-|variable              |verifyList     |equals  to                                       |
-|verify page contains  |{$CONTACT.list}|element                                          |
-|assert                |{$verifyList}  |true with message|Contact list success           |
-|click                 |{$CONTACT.list}                                                  |
-|variable              |contactview    |equals  to                                       |
-|wait  for  element    |{$CONTACT.popup}                                                 |
-|assert                |{$contactview} |true with message|Contact view opens successfully|
-|pause  execution  for |2              |seconds                                          |
-|click                 |{$CONTACT.popupclose}                                            |
-|close  window  number |2                                                                |
+!| Scenario           |verify contact view                                             |
+|select               |Default       |frame                                            |
+|wait  for  element   |{$CONTACT.navlink}                                              |
+|click                |{$CONTACT.navlink}                                              |
+|wait  for  element   |{$CONTACT.link}                                                 |
+|click                |{$CONTACT.link}                                                 |
+|pause  execution  for|2             |seconds                                          |
+|switch to popup window                                                                |
+|wait  for  element   |{$CONTACT.list}                                                 |
+|click                |{$CONTACT.list}                                                 |
+|variable             |contactview   |equals  to                                       |
+|wait  for  element   |{$CONTACT.popup}                                                |
+|assert               |{$contactview}|true with message|Contact view opens successfully|
+|pause  execution  for|2             |seconds                                          |
+|click                |{$CONTACT.popupclose}                                           |
+|close popup window                                                                    |
 
-!| Scenario           |verify theme change                                                |
-|select               |Default           |frame                                           |
-|wait  for  element   |{$THEME.button}                                                    |
-|focus and click      |{$THEME.button}                                                    |
-|wait  for  element   |{$THEME.link}                                                      |
-|click                |{$THEME.link}                                                      |
-|pause  execution  for|3                 |seconds                                         |
-|wait  for  element   |{$THEME.listpopup}                                                 |
-|variable             |listPopup         |equals  to                                      |
-|verify page contains |{$THEME.listpopup}|element                                         |
-|assert               |{$listPopup}      |true with message|Theme list popups successfully|
-|wait  for  element   |{$THEME.select}                                                    |
-|scroll to            |{$THEME.select}                                                    |
-|click                |{$THEME.select}                                                    |
-|variable             |selTheme          |equals  to                                      |
-|verify page contains |{$THEME.select}   |element                                         |
-|assert               |{$selTheme}       |true with message|Theme list popups successfully|
-|pause  execution  for|3                 |seconds                                         |
-|click                |{$THEME.save}                                                      |
-|pause  execution  for|2                 |seconds                                         |
+!| Scenario              |verify theme change                                                                                                          |
+|select                  |Default                                              |frame                                                                  |
+|pause  execution  for   |2                                                    |seconds                                                                |
+|capture image of element|.//a[@title='Gmail']/..                              |to file|logo_light_2.png       |at path|/home/bhagavank/Desktop/Screens|
+|compare image           |/home/bhagavank/Desktop/Screens/logo_light.png       |with   |/home/bhagavank/Desktop/Screens/logo_light_2.png               |
+|pause  execution  for   |2                                                    |seconds                                                                |
+|wait  for  element      |{$THEME.button}                                                                                                              |
+|focus and click         |{$THEME.button}                                                                                                              |
+|wait  for  element      |{$THEME.link}                                                                                                                |
+|click                   |{$THEME.link}                                                                                                                |
+|wait  for  element      |{$THEME.darktheme}                                                                                                           |
+|scroll to               |{$THEME.darktheme}                                                                                                           |
+|click                   |{$THEME.darktheme}                                                                                                           |
+|pause  execution  for   |3                                                    |seconds                                                                |
+|click                   |{$THEME.save}                                                                                                                |
+|pause  execution  for   |2                                                    |seconds                                                                |
+|send robot              |TAB                                                  |key                                                                    |
+|pause  execution  for   |2                                                    |seconds                                                                |
+|capture image of element|.//a[@title='Gmail']/..                              |to file|logo_dark_2.png        |at path|/home/bhagavank/Desktop/Screens|
+|compare image           |/home/bhagavank/Desktop/Screens/logo_dark.png        |with   |/home/bhagavank/Desktop/Screens/logo_dark_2.png                |
+|select                  |Default                                              |frame                                                                  |
+|focus and click         |{$THEME.buttonre}                                                                                                            |
+|wait  for  element      |{$THEME.link}                                                                                                                |
+|click                   |{$THEME.link}                                                                                                                |
+|wait  for  element      |{$THEME.lighttheme}                                                                                                          |
+|scroll to               |{$THEME.lighttheme}                                                                                                          |
+|click                   |{$THEME.lighttheme}                                                                                                          |
+|pause  execution  for   |3                                                    |seconds                                                                |
+|click                   |{$THEME.save}                                                                                                                |
+|pause  execution  for   |2                                                    |seconds                                                                |
+|click                   |{$GMAIL.composebutton}                                                                                                       |
+|enter recepient         |testemail744@gmail.com                                                                                                       |
+|type                    |Test Email                                           |into   |{$GMAIL.subjectfield}  |text field                             |
+|type                    |Automation Test Mail                                 |into   |{$GMAIL.bodyarea}      |text field                             |
+|pause  execution  for   |2                                                    |seconds                                                                |
+|send robot              |CONTROL,A                                            |key                                                                    |
+|click                   |{$GMAIL.formattogglebutton}                                                                                                  |
+|pause  execution  for   |2                                                    |seconds                                                                |
+|click                   |{$GMAIL.boldformatbutton}                                                                                                    |
+|click                   |{$GMAIL.formattogglebutton}                                                                                                  |
+|click                   |{$GMAIL.bodyarea}                                                                                                            |
+|pause  execution  for   |3                                                    |seconds                                                                |
+|capture image of element|.//div[@role='dialog']/div[3]                        |to file|compose_mail_format.png|at path|/home/bhagavank/Desktop/Screens|
+|compare image           |/home/bhagavank/Desktop/Screens/compose_mail_base.png|with   |/home/bhagavank/Desktop/Screens/compose_mail_format.png        |
+|pause  execution  for   |2                                                    |seconds                                                                |
+|click                   |.//div[@data-tooltip='Discard draft']                                                                                        |
+
 
 !| Scenario              |verify attachments                                                                     |
 |variable                |fileExists                       |equals  to                                           |
@@ -232,15 +293,13 @@
 |type                 |{$body}             |into             |{$GMAIL.bodyarea}    |text field|
 |pause  execution  for|5                   |seconds                                           |
 |close popup window                                                                           |
-|switch to default window                                                                     |
+|pause  execution  for|3                   |seconds                                           |
 |navigate to draft                                                                            |
 |wait  for  element   |{$DRAFT.testmail}                                                      |
 |click                |{$DRAFT.testmail}                                                      |
-|switch to popup window                                                                       |
 |variable             |mailSubject         |equals  to                                        |
 |get  text  from      |{$GMAIL.bodycontent}|text  field                                       |
 |click                |{$GMAIL.close}                                                         |
-|switch to default window                                                                     |
 |variable             |isEquals            |equals  to                                        |
 |verify               |{$mailSubject}      |with             |{$body}                         |
 |assert               |{$isEquals}         |true with message|Verify mail subject is unchanged|
@@ -248,6 +307,11 @@
 !| Scenario |navigate to draft                            |
 |clear  text|{$INBOX.searchfield}                         |
 |type       |in:draft|into|{$INBOX.searchfield}|text field|
+|click      |{$INBOX.serchbutton}                         |
+
+!| Scenario |navigate to inbox                            |
+|clear  text|{$INBOX.searchfield}                         |
+|type       |in:inbox|into|{$INBOX.searchfield}|text field|
 |click      |{$INBOX.serchbutton}                         |
 
 !| Scenario           |navigate to Forums Section|
@@ -267,22 +331,23 @@
 |pause  execution  for|6                  |seconds                              |
 |click                |{$GMAIL.sendbutton}                                      |
 
-!| Scenario           |delete mail from draft               |
-|variable             |isPresent                 |equals  to|
-|verify page contains |{DRAFT.checknomailbox}    |element   |
-|variable             |condition                 |equals  to|
-|assert false         |{$isPresent}                         |
-|If                   |{$condition}                         |
-|variable             |verifyElementinGmail      |equals  to|
-|verify page contains |{$DRAFT.selectallcheckbox}|element   |
-|If                   |{$verifyElementinGmail}              |
-|check check box      |{$DRAFT.selectallcheckbox}           |
-|End If                                                     |
-|pause  execution  for|5                         |seconds   |
-|verify page contains |{$DRAFT.discarddrafts}    |element   |
-|click                |{$DRAFT.discarddrafts}               |
-|pause  execution  for|5                         |seconds   |
-|End If                                                     |
+!| Scenario              |delete mail from draft               |
+|pause  execution  for   |3                         |seconds   |
+|set page time out       |1                                    |
+|variable                |isPresent                 |equals  to|
+|verify page not contains|{$DRAFT.checknomailbox}   |element   |
+|set page time out       |30                                   |
+|If                      |{$isPresent}                         |
+|variable                |verifyElementinGmail      |equals  to|
+|verify page contains    |{$DRAFT.selectallcheckbox}|element   |
+|If                      |{$verifyElementinGmail}              |
+|click                   |{$DRAFT.selectallcheckbox}           |
+|End If                                                        |
+|pause  execution  for   |5                         |seconds   |
+|verify page contains    |{$DRAFT.discarddrafts}    |element   |
+|click                   |{$DRAFT.discarddrafts}               |
+|pause  execution  for   |5                         |seconds   |
+|End If                                                        |
 
 !| Scenario           |delete existed mail in filter section                                |
 |variable             |checkinbox             |equals  to                                   |
@@ -321,7 +386,15 @@
 |variable             |ispresent               |equals  to                                      |
 |verify  whether      |{$defaultval}           |is  present  in  |{$rowval}          |string    |
 |assert               |{$ispresent}            |true with message|List contains search data     |
-|pause  execution  for|2                       |seconds                                         |
+|pause  execution  for|3                       |seconds                                         |
+
+!|Scenario        |refresh page                    |
+|open             |https://www.gmail.com|URL       |
+|variable         |popUpExists          |equals  to|
+|verify  popup  is|visible                         |
+|If               |{$popUpExists}                  |
+|popup  action    |ok                              |
+|End If                                            |
 
 
 !| Scenario       |verify filters       |
@@ -339,8 +412,8 @@
 |focus and click   |{$SETTING.button}      |
 |wait  for  element|{$SETTING.link}        |
 |click             |{$SETTING.link}        |
-|wait  for  element|{$SETTING.Filterlink}  |
-|click             |{$SETTING.Filterlink}  |
+|wait  for  element|{$SETTING.filterlink}  |
+|click             |{$SETTING.filterlink}  |
 
 !| Scenario           |delete existed filters                 |
 |variable             |isdelteiconPresent  |equals  to        |
@@ -356,31 +429,30 @@
 |End If                                                       |
 |pause  execution  for|3                   |seconds           |
 
-!| Scenario           |create a new filters                                       |
-|click                |{$FILTER.createfilterlink}                                 |
-|type                 |Automation Testcase  |into|{$FILTER.subjecttext}|text field|
-|click                |{$FILTER.createfiltersearchlink}                           |
-|pause  execution  for|2                    |seconds                              |
-|click                |{$FILTER.categorizecheckbox}                               |
-|send robot           |TAB,ENTER            |key                                  |
-|wait  for  element   |{$FILTER.promotionsdropdown}                               |
-|click                |{$FILTER.forumsdropdown}                                   |
-|pause  execution  for|5                    |seconds                              |
-|click                |{$FILTER.createfilterbutton}                               |
-|pause  execution  for|5                    |seconds                              |
-|verify page contains |{$FILTER.filterpopup}|element                              |
+!| Scenario           |create a new filters                                            |
+|click                |{$FILTER.createfilterlink}                                      |
+|type                 |Automation Testcase  |into     |{$FILTER.subjecttext}|text field|
+|click                |{$FILTER.createfiltersearchlink}                                |
+|pause  execution  for|2                    |seconds                                   |
+|click                |{$FILTER.categorizecheckbox}                                    |
+|                     |send robot           |TAB,ENTER|key                             |
+|click                |{$FILTER.categorycheckbox}                                      |
+|pause  execution  for|1                    |seconds                                   |
+|click                |{$FILTER.forumsdropdown}                                        |
+|pause  execution  for|5                    |seconds                                   |
+|click                |{$FILTER.createfilterbutton}                                    |
+|pause  execution  for|5                    |seconds                                   |
+|verify page contains |{$FILTER.filterpopup}|element                                   |
 
 |Scenario            |verify subject of mail in Forum Section|                                             |
 |variable            |inboxcontent                           |equals  to                                   |
 |verify page contains|{$FILTER.unreadmail}                   |element                                      |
+|assert              |{$inboxcontent}                        |true with message|Verify filter functionality|
 |If                  |{$inboxcontent}                                                                      |
-|assert              |{$inboxcontent}                        |true with message|your forum tab is not empty|
 |click               |{$FILTER.unreadmail}                                                                 |
 |variable            |msgsubject                             |equals  to                                   |
 |get  text  from     |{$FILTER.subjectcontent}               |text  area                                   |
 |assert              |{$msgsubject}                          |equals           |Automation Testcase        |
-|Else                                                                                                      |
-|assert false        |Filter is not working properly                                                       |
 |End If                                                                                                    |
 
 
@@ -457,7 +529,6 @@
 |pause  execution  for|1                    |seconds                                 |
 |wait  for  element   |{$TOOLSPLIT.selectbox}                                        |
 |focus and click      |{$TOOLSPLIT.selectbox}                                        |
-|pause  execution  for|1                    |seconds                                 |
 |wait  for  element   |{$TOOLSPLIT.selectvertical}                                   |
 |click                |{$TOOLSPLIT.selectvertical}                                   |
 |wait  for  element   |{$TOOLSPLIT.mailvertical}                                     |
@@ -501,6 +572,7 @@
 |click                 |{$TOOL.unreadmail}                               |
 |click                 |{$MULTITHREAD.inboxlink}                         |
 |pause  execution  for |2                 |seconds                       |
+|refresh page                                                            |
 |verify vertical split                                                   |
 |verify horizontal split                                                 |
 |return to no split                                                      |
