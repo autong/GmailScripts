@@ -1,7 +1,7 @@
 |Data Repository     |DATASHEET                                  |
 |Id                  |Value                                      |
 |url                 |!-http://www.gmail.com/-!                  |
-|downloadfilelocation|!-/home/bhagavank/Downloads/testPhoto.png-!|
+|downloadfilelocation|!-/Users/Priyanka/Downloads/testPhoto.png-!|
 
 
 |Object Repository|INBOX                                                            |
@@ -134,14 +134,14 @@
 |lighttheme       |.//div[contains(@aria-label,'Light')]                           |xpath|
 |buttonre         |.//div[@data-tooltip='Settings']                                |xpath|
 
-|Object Repository|SEARCH                                                                                     |
-|Id               |Value                                                                                |Type |
-|inputtext        |.//input[contains(@type,'text') and contains(@aria-label,'Search')]                  |xpath|
-|button           |.//button[contains(@aria-label,'Search Gmail')]                                      |xpath|
-|options          |.//div[contains(@role,'button') and contains(@data-tooltip,'Show search options')]   |xpath|
-|extrainputtext   |.//input[contains(@type,'text') and contains(@value,'Test Email')]                   |xpath|
-|innerbutton      |.//div[contains(@role,'button') and contains(@data-tooltip,'Search Mail')]           |xpath|
-|mailval          |(.//div[contains(@role,'main')]//table)[1]/tbody/tr[1]/td/div[contains(@role,'link')]|xpath|
+|Object Repository|SEARCH                                                                                                     |
+|Id               |Value                                                                                                |Type |
+|inputtext        |.//input[contains(@type,'text') and contains(@aria-label,'Search')]                                  |xpath|
+|button           |.//button[contains(@aria-label,'Search Gmail')]                                                      |xpath|
+|options          |.//div[contains(@role,'button') and contains(@data-tooltip,'Show search options')]                   |xpath|
+|extrainputtext   |.//input[contains(@type,'text') and contains(@value,'Test Email')]                                   |xpath|
+|innerbutton      |.//div[contains(@role,'button') and contains(@data-tooltip,'Search Mail')]                           |xpath|
+|mailval          |((.//div[contains(@role,'main')]//table)[1]/tbody/tr//td//div/span[contains(text(),'Test Email')])[1]|xpath|
 
 |Object Repository|MULTITHREAD                                                                                                                                              |
 |Id               |Value                                                                                                                                              |Type |
@@ -165,7 +165,7 @@
 |Id               |Value                                                                              |Type |
 |emptytrash       |.//span[contains(@role,'button') and contains(text(),'Empty Trash now')]           |xpath|
 |alertheading     |.//span[contains(@role,'heading') and contains(text(),'Confirm deleting messages')]|xpath|
-|alertbutton      |.//button[contains(@name,'ok') and contains(text(),'OK')]                          |xpath|
+|alertbutton      |(.//button[contains(@name,'ok') and contains(text(),'OK')])[last()]                |xpath|
 
 |Object Repository|TOOLSPLIT                                                                                                                                    |
 |Id               |Value                                                                                                                                  |Type |
