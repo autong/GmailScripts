@@ -9,6 +9,189 @@
 |maximize browser                              |
 |open URL     |@url                            |
 
+!| Scenario      |verify Lables from settings      |
+|compose a mail for Label                          |
+|navigate to labels link                           |
+|create new labels                                 |
+|verify show and hide label from in label list     |
+|verify show and hide label from in message list   |
+|verify remove and edit button after create a label|
+|create label from different places                |
+|verify label created sucessfully                  |
+|verify remove lable in newly created label folder |
+|drag and drop labels                              |
+
+!|Scenario            |compose a mail for Label                                    |
+|click                |{$GMAIL.composebutton}                                      |
+|wait  for  element   |{$GMAIL.tofield}                                            |
+|enter recepient      |{$recepient}                                                |
+|type                 |Labelcreation Testcase|into|{$GMAIL.subjectfield}|text field|
+|type                 |{$body}               |into|{$GMAIL.bodyarea}    |text field|
+|pause  execution  for|2                     |seconds                              |
+|click                |{$GMAIL.sendbutton}                                         |
+
+
+
+!|Scenario             |verify remove lable in newly created label folder                                                      |
+|pause  execution  for |5                           |seconds                                                                   |
+|click                 |{$LABEL.labelname}                                                                                     |
+|variable              |checklabel                  |equals  to                                                                |
+|verify  page  contains|{$LABEL.labelnameinsdiemail}|element                                                                   |
+|assert                |{$checklabel}               |true with message         |New lable is displayed inside the mail         |
+|navigate to label                                                                                                             |
+|pause  execution  for |3                           |seconds                                                                   |
+|                      |press robot                 |*,a                       |key                                            |
+|                      |variable                    |verifyElementinGmail      |equals  to                                     |
+|                      |verify page contains        |{$LABEL.selectallcheckbox}|element                                        |
+|                      |If                          |{$verifyElementinGmail}                                                   |
+|                      |check check box             |{$LABEL.selectallcheckbox}                                                |
+|                      |End If                                                                                                 |
+|click                 |{$LABEL.removebutton}                                                                                  |
+|pause  execution  for |5                           |seconds                                                                   |
+|                      |variable                    |checkrefreshbutton        |equals  to                                     |
+|                      |verify page contains        |{$LABEL.refreshbutton}    |element                                        |
+|                      |click                       |{$LABEL.refreshbutton}                                                    |
+|                      |assert                      |{$checkrefreshbutton}     |true with message|removed the label sucessfully|
+
+
+
+!| Scenario        |navigate to labels link  |
+|open              |https://www.gmail.com|URL|
+|wait  for  element|{$SETTING.button}        |
+|focus and click   |{$SETTING.button}        |
+|wait  for  element|{$SETTING.link}          |
+|click             |{$SETTING.link}          |
+|wait  for  element|{$SETTING.labelbutton}   |
+|click             |{$SETTING.labelbutton}   |
+
+!|Scenario             |create new labels                                                                   |
+|variable              |remove                      |equals  to                                             |
+|get  element  count   |{$LABEL.allremove}                                                                  |
+|show                  |evaluate                    |{$remove}                                              |
+|loop                  |{$remove}                   |times                                                  |
+|variable              |verifyremoveelement         |equals  to                                             |
+|verify  page  contains|{$LABEL.removelink}         |element                                                |
+|If                    |{$verifyremoveelement}                                                              |
+|pause  execution  for |2                           |seconds                                                |
+|click                 |{$LABEL.removelink}                                                                 |
+|click                 |{$LABEL.okbutton}                                                                   |
+|End If                                                                                                     |
+|end  loop                                                                                                  |
+|click                 |{$LABEL.createnewlabelbutton}                                                       |
+|variable              |verifypopup                 |equals  to                                             |
+|verify page contains  |{$LABEL.createpopup}        |element                                                |
+|If                    |{$verifypopup}                                                                      |
+|assert                |{$verifypopup}              |true with message|Create new label popup is displayed  |
+|type                  |MynewLabel                  |into             |{$LABEL.newlabeltextfield}|text field|
+|click                 |{$LABEL.createbuton}                                                                |
+|End If                                                                                                     |
+|variable              |verifycreatelabel           |equals  to                                             |
+|verify page contains  |{$LABEL.verifylabelmessage} |element                                                |
+|assert                |{$verifycreatelabel}        |true with message|label created sucessfully            |
+|verify page contains  |{$LABEL.leftsidecreatelabel}|element                                                |
+
+
+!|Scenario            |verify show and hide label from in label list                                             |
+|click                |{$LABEL.showinlabelistdropdown}                                                           |
+|pause  execution  for|5                              |seconds                                                   |
+|variable             |showall                        |equals  to                                                |
+|verify page contains |{$LABEL.showinlabelistdropdown}|element                                                   |
+|assert               |{$showall}                     |true with message|Show all displayed in Show in label list|
+|variable             |hideall                        |equals  to                                                |
+|verify page contains |{$LABEL.hideallitemlabellist}  |element                                                   |
+|assert               |{$hideall}                     |true with message|Hide all displayed in Show in label list|
+
+!|Scenario            |verify show and hide label from in message list                                                |
+|click                |{$LABEL.showinmessagelist}                                                                     |
+|pause  execution  for|5                              |seconds                                                        |
+|variable             |showall                        |equals  to                                                     |
+|verify page contains |{$LABEL.showallitemmessagelist}|element                                                        |
+|assert               |{$showall}                     |true with message|Show all is displayed in Show in message list|
+|variable             |hideall                        |equals  to                                                     |
+|verify page contains |{$LABEL.hidealltemmessagelist} |element                                                        |
+|assert               |{$hideall}                     |true with message|Hide all is displayed in Show in message list|
+
+
+!|Scenario               |verify remove and edit button after create a label                                                                                 |
+|variable                |remove                      |equals  to                                                                                            |
+|verify  page  contains  |{$LABEL.removelink}         |element                                                                                               |
+|assert                  |{$remove}                   |true with message           |remove link is displayed after creating a level                          |
+|variable                |edit                        |equals to                                                                                             |
+|verify  page  contains  |{$LABEL.editlink}           |element                                                                                               |
+|assert                  |{$edit}                     |true with message           |edit link is displayed after creating a level                            |
+|pause  execution  for   |5                           |seconds                                                                                               |
+|variable                |labelname                   |equals  to                                                                                            |
+|verify  page  contains  |{$LABEL.leftsidecreatelabel}|element                                                                                               |
+|assert                  |{$labelname}                |true with message           |label name is displayed in left side                                     |
+|click                   |{$LABEL.removelink}                                                                                                                |
+|click                   |{$LABEL.okbutton}                                                                                                                  |
+|pause  execution  for   |5                           |seconds                                                                                               |
+|variable                |labelname                   |equals  to                                                                                            |
+|verify page not contains|{$LABEL.leftsidecreatelabel}|element                                                                                               |
+|assert                  |{$labelname}                |true with message           |label name is not displayed after click on remove link                   |
+|                        |verify  page  contains      |{$LABEL.leftsidecreatelabel}|element                                                                  |
+|                        |assert                      |{$labelname}                |false with message|label name is not displayed after click on remove link|
+
+
+!|Scenario            |create label from different places                                                                         |
+|pause  execution  for|5                               |seconds                                                                   |
+|click                |{$INBOX.inboxlink}                                                                                         |
+|wait  until          |{$INBOX.firstcheckbox}          |element  is  clickable                                                    |
+|click                |{$INBOX.firstcheckbox}                                                                                     |
+|pause  execution  for|10                              |seconds                                                                   |
+|press robot          |L                               |key                                                                       |
+|click                |{$LABEL.createnewbuttons}                                                                                  |
+|variable             |verifypopup                     |equals  to                                                                |
+|verify page contains |{$LABEL.createpopup}            |element                                                                   |
+|If                   |{$verifypopup}                                                                                             |
+|assert               |{$verifypopup}                  |true with message                |Create new label popup is displayed     |
+|type                 |MynewLabel                      |into                             |{$LABEL.newlabeltextfield}  |text field |
+|click                |{$LABEL.creates}                                                                                           |
+|End If                                                                                                                           |
+|pause  execution  for|10                              |seconds                                                                   |
+|press robot          |L                               |key                                                                       |
+|variable             |checklabel                      |equals  to                                                                |
+|verify page contains |{$LABEL.verifylabelnamedropdown}|element                                                                   |
+|assert               |{$checklabel}                   |true with message                |newly created label is shown in dropdown|
+|open                 |https:www.gmail.com             |URL                                                                       |
+|pause  execution  for|10                              |seconds                                                                   |
+|wait  until          |{$INBOX.firstcheckbox}          |element  is  clickable                                                    |
+|click                |{$INBOX.firstcheckbox}                                                                                     |
+|                     |variable                        |checklabel                       |equals  to                              |
+|                     |verify page contains            |{$LABEL.verifycheckboxindropdown}|element                                 |
+|                     |If                              |{$checklabel}                                                             |
+|                     |check check box                 |{$LABEL.checkboxlabelnamedropdown}                                        |
+|                     |click                           |{$LABEL.applybutton}                                                      |
+|                     |End If                                                                                                     |
+
+
+
+!|Scenario           |verify label created sucessfully                              |
+|variable            |checklabel        |equals  to                                 |
+|verify page contains|{$LABEL.labelname}|element                                    |
+|assert              |{$checklabel}     |true with message|label created sucessfully|
+
+
+!|Scenario               |verify label deleted sucessfully                              |
+|variable                |checklabel        |equals  to                                 |
+|verify page not contains|{$LABEL.labelname}|element                                    |
+|assert                  |{$checklabel}     |true with message|label deleted sucessfully|
+
+!|Scenario             |drag and drop labels                                                                 |
+|click                 |{$INBOX.inboxlink}                                                                   |
+|open                  |https:www.gmail.com         |URL                                                     |
+|pause  execution  for |5                           |seconds                                                 |
+|verify label deleted sucessfully                                                                            |
+|wait  for  element    |{$LABEL.leftsidelabel}                                                               |
+|drag                  |{$LABEL.leftsidelabel}      |and  drop  to    |{$INBOX.firstcheckbox}                |
+|click                 |{$LABEL.labelname}                                                                   |
+|variable              |checklabel                  |equals  to                                              |
+|verify  page  contains|{$LABEL.labelnameinsdiemail}|element                                                 |
+|assert                |{$checklabel}               |true with message|New label is displayed inside the mail|
+|press robot           |Y                           |key                                                     |
+
+
+
 !| Scenario           |login with username _ and password _|username,password                         |
 |type                 |@username                           |into|{$LOGIN.usernamefield}    |text field|
 |set page time out    |1                                                                              |
@@ -591,3 +774,10 @@
 |pause  execution  for |2                 |seconds                       |
 |click                 |{$MULTITHREAD.inboxlink}                         |
 |pause  execution  for |2                 |seconds                       |
+
+
+
+!| Scenario |navigate to label                                    |
+|clear  text|{$INBOX.searchfield}                                 |
+|type       |label:mynewlabel|into|{$INBOX.searchfield}|text field|
+|click      |{$INBOX.serchbutton}                                 |
