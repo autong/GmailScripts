@@ -276,7 +276,7 @@
 !|Scenario            |verify formating                                                             |
 |send robot           |CONTROL,A                           |key                                     |
 |click                |{$GMAIL.formattogglebutton}                                                  |
-|pause  execution  for|2                                   |seconds                                 |
+|pause  execution  for|3                                   |seconds                                 |
 |click                |{$GMAIL.boldformatbutton}                                                    |
 |variable             |isFormatted                         |equals  to                              |
 |verify page contains |.//div[@aria-label='Message Body']/b|element                                 |
@@ -311,11 +311,11 @@
 !| Scenario           |verify email has arrived                                  |
 |click                |.//a[contains(text(),'Inbox')]                            |
 |variable             |emailArrived   |equals  to                                |
-|wait  for  element   |(.//b[text()='{$subject}'])[last()]                       |
+|wait  for  element   |(.//b[contains(text(),'{$subject}')])[last()]             |
 |assert               |{$emailArrived}|true with message|Verify email has arrived|
 |If                   |{$emailArrived}                                           |
 |pause  execution  for|1              |seconds                                   |
-|click                |(.//b[text()='{$subject}'])[last()]                       |
+|click                |(.//b[contains(text(),'{$subject}')])[last()]             |
 |pause  execution  for|2              |seconds                                   |
 |End If                                                                          |
 
@@ -392,52 +392,52 @@
 |click                |{$CONTACT.popupclose}                                           |
 |close popup window                                                                    |
 
-!| Scenario              |verify theme change                                                                                                          |
-|select                  |Default                                              |frame                                                                  |
-|pause  execution  for   |2                                                    |seconds                                                                |
-|capture image of element|.//a[@title='Gmail']/..                              |to file|logo_light_2.png       |at path|/home/bhagavank/Desktop/Screens|
-|compare image           |/home/bhagavank/Desktop/Screens/logo_light.png       |with   |/home/bhagavank/Desktop/Screens/logo_light_2.png               |
-|pause  execution  for   |2                                                    |seconds                                                                |
-|wait  for  element      |{$THEME.button}                                                                                                              |
-|focus and click         |{$THEME.button}                                                                                                              |
-|wait  for  element      |{$THEME.link}                                                                                                                |
-|click                   |{$THEME.link}                                                                                                                |
-|wait  for  element      |{$THEME.darktheme}                                                                                                           |
-|scroll to               |{$THEME.darktheme}                                                                                                           |
-|click                   |{$THEME.darktheme}                                                                                                           |
-|pause  execution  for   |3                                                    |seconds                                                                |
-|click                   |{$THEME.save}                                                                                                                |
-|pause  execution  for   |2                                                    |seconds                                                                |
-|send robot              |TAB                                                  |key                                                                    |
-|pause  execution  for   |2                                                    |seconds                                                                |
-|capture image of element|.//a[@title='Gmail']/..                              |to file|logo_dark_2.png        |at path|/home/bhagavank/Desktop/Screens|
-|compare image           |/home/bhagavank/Desktop/Screens/logo_dark.png        |with   |/home/bhagavank/Desktop/Screens/logo_dark_2.png                |
-|select                  |Default                                              |frame                                                                  |
-|focus and click         |{$THEME.buttonre}                                                                                                            |
-|wait  for  element      |{$THEME.link}                                                                                                                |
-|click                   |{$THEME.link}                                                                                                                |
-|wait  for  element      |{$THEME.lighttheme}                                                                                                          |
-|scroll to               |{$THEME.lighttheme}                                                                                                          |
-|click                   |{$THEME.lighttheme}                                                                                                          |
-|pause  execution  for   |3                                                    |seconds                                                                |
-|click                   |{$THEME.save}                                                                                                                |
-|pause  execution  for   |2                                                    |seconds                                                                |
-|click                   |{$GMAIL.composebutton}                                                                                                       |
-|enter recepient         |testemail744@gmail.com                                                                                                       |
-|type                    |Test Email                                           |into   |{$GMAIL.subjectfield}  |text field                             |
-|type                    |Automation Test Mail                                 |into   |{$GMAIL.bodyarea}      |text field                             |
-|pause  execution  for   |2                                                    |seconds                                                                |
-|send robot              |CONTROL,A                                            |key                                                                    |
-|click                   |{$GMAIL.formattogglebutton}                                                                                                  |
-|pause  execution  for   |2                                                    |seconds                                                                |
-|click                   |{$GMAIL.boldformatbutton}                                                                                                    |
-|click                   |{$GMAIL.formattogglebutton}                                                                                                  |
-|click                   |{$GMAIL.bodyarea}                                                                                                            |
-|pause  execution  for   |3                                                    |seconds                                                                |
-|capture image of element|.//div[@role='dialog']/div[3]                        |to file|compose_mail_format.png|at path|/home/bhagavank/Desktop/Screens|
-|compare image           |/home/bhagavank/Desktop/Screens/compose_mail_base.png|with   |/home/bhagavank/Desktop/Screens/compose_mail_format.png        |
-|pause  execution  for   |2                                                    |seconds                                                                |
-|click                   |.//div[@data-tooltip='Discard draft']                                                                                        |
+!| Scenario              |verify theme change                                                                                                                        |
+|select                  |Default                                                     |frame                                                                         |
+|pause  execution  for   |2                                                           |seconds                                                                       |
+|capture image of element|.//a[@title='Gmail']/..                                     |to file|logo_light_2.png       |at path|C:\Users\Govind.Kalria\Desktop\Screens|
+|compare image           |C:\Users\Govind.Kalria\Desktop\Screens\logo_light.png       |with   |C:\Users\Govind.Kalria\Desktop\Screens\logo_light_2.png               |
+|pause  execution  for   |2                                                           |seconds                                                                       |
+|wait  for  element      |{$THEME.button}                                                                                                                            |
+|focus and click         |{$THEME.button}                                                                                                                            |
+|wait  for  element      |{$THEME.link}                                                                                                                              |
+|click                   |{$THEME.link}                                                                                                                              |
+|wait  for  element      |{$THEME.darktheme}                                                                                                                         |
+|scroll to               |{$THEME.darktheme}                                                                                                                         |
+|click                   |{$THEME.darktheme}                                                                                                                         |
+|pause  execution  for   |3                                                           |seconds                                                                       |
+|click                   |{$THEME.save}                                                                                                                              |
+|pause  execution  for   |2                                                           |seconds                                                                       |
+|send robot              |TAB                                                         |key                                                                           |
+|pause  execution  for   |2                                                           |seconds                                                                       |
+|capture image of element|.//a[@title='Gmail']/..                                     |to file|logo_dark_2.png        |at path|C:\Users\Govind.Kalria\Desktop\Screens|
+|compare image           |C:\Users\Govind.Kalria\Desktop\Screens\logo_dark.png        |with   |C:\Users\Govind.Kalria\Desktop\Screens\logo_dark_2.png                |
+|select                  |Default                                                     |frame                                                                         |
+|focus and click         |{$THEME.buttonre}                                                                                                                          |
+|wait  for  element      |{$THEME.link}                                                                                                                              |
+|click                   |{$THEME.link}                                                                                                                              |
+|wait  for  element      |{$THEME.lighttheme}                                                                                                                        |
+|scroll to               |{$THEME.lighttheme}                                                                                                                        |
+|click                   |{$THEME.lighttheme}                                                                                                                        |
+|pause  execution  for   |3                                                           |seconds                                                                       |
+|click                   |{$THEME.save}                                                                                                                              |
+|pause  execution  for   |2                                                           |seconds                                                                       |
+|click                   |{$GMAIL.composebutton}                                                                                                                     |
+|enter recepient         |testemail744@gmail.com                                                                                                                     |
+|type                    |Test Email                                                  |into   |{$GMAIL.subjectfield}  |text field                                    |
+|type                    |Automation Test Mail                                        |into   |{$GMAIL.bodyarea}      |text field                                    |
+|pause  execution  for   |2                                                           |seconds                                                                       |
+|send robot              |CONTROL,A                                                   |key                                                                           |
+|click                   |{$GMAIL.formattogglebutton}                                                                                                                |
+|pause  execution  for   |2                                                           |seconds                                                                       |
+|click                   |{$GMAIL.boldformatbutton}                                                                                                                  |
+|click                   |{$GMAIL.formattogglebutton}                                                                                                                |
+|click                   |{$GMAIL.bodyarea}                                                                                                                          |
+|pause  execution  for   |3                                                           |seconds                                                                       |
+|capture image of element|.//div[@role='dialog']/div[3]                               |to file|compose_mail_format.png|at path|C:\Users\Govind.Kalria\Desktop\Screens|
+|compare image           |C:\Users\Govind.Kalria\Desktop\Screens\compose_mail_base.png|with   |C:\Users\Govind.Kalria\Desktop\Screens\compose_mail_format.png        |
+|pause  execution  for   |2                                                           |seconds                                                                       |
+|click                   |.//div[@data-tooltip='Discard draft']                                                                                                      |
 
 
 !| Scenario              |verify attachments                                                                     |

@@ -24,13 +24,13 @@ Not applicable
 !include -c <GmailTestSuite.CommonLibraries
 
 
-!|Script                   |AutomationNG                                    |
-|set test                  |${PAGE_NAME}                                    |
-|set result name           |${PAGE_NAME}          |at path     |${PAGE_PATH}|
-|start browser and open url|https://www.gmail.com                           |
-|read gmail data from excel sheet                                           |
-|login with username       |testemail744@gmail.com|and password|test@744    |
-|verify login action                                                        |
-|compose mail and verify                                                    |
-|close browser                                                              |
+!|Script                   |AutomationNG                                                    |
+|set test                  |${PAGE_NAME}                                                    |
+|set result name           |${PAGE_NAME}       |at path               |${PAGE_PATH}         |
+|start browser and open url|https://www.gmail.com                                           |
+|read gmail data from excel sheet                                                           |
+|login with username|testemail744@gmail.com|and password|test@744|
+|verify login action                                             |
+|compose mail and verify                                                                    |
+|close browser                                                                              |
 

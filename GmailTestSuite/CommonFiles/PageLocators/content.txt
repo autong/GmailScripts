@@ -1,7 +1,7 @@
-|Data Repository     |DATASHEET                                  |
-|Id                  |Value                                      |
-|url                 |!-http://www.gmail.com/-!                  |
-|downloadfilelocation|!-/Users/Priyanka/Downloads/testPhoto.png-!|
+|Data Repository     |DATASHEET                                         |
+|Id                  |Value                                             |
+|url                 |!-http://www.gmail.com/-!                         |
+|downloadfilelocation|!-C:\Users\Govind.Kalria\Downloads\testPhoto.png-!|
 
 |Object Repository        |LABEL                                                                                                                  |
 |Id                       |Value                                                                                                            |Type |
@@ -88,7 +88,7 @@
 |formattogglebutton|.//div[@data-tooltip='Formatting options']         |xpath|
 |undolink          |link_undo                                          |id   |
 |italicformatbutton|.//div[@data-tooltip='Italic ‪(Ctrl-I)‬']          |xpath|
-|boldformatbutton  |.//div[@data-tooltip='Bold ‪(Ctrl-B)‬']            |xpath|
+|boldformatbutton  |.//div[contains(@data-tooltip,"Bold ")]            |xpath|
 
 
 |Object Repository|DRAFT                                                                           |
@@ -179,16 +179,16 @@
 |innerbutton      |.//div[contains(@role,'button') and contains(@data-tooltip,'Search Mail')]                           |xpath|
 |mailval          |((.//div[contains(@role,'main')]//table)[1]/tbody/tr//td//div/span[contains(text(),'Test Email')])[1]|xpath|
 
-|Object Repository|MULTITHREAD                                                                                                                                              |
-|Id               |Value                                                                                                                                              |Type |
-|maillist         |(.//div[contains(@role,'main')]//table)[2]/tbody                                                                                                   |xpath|
-|singlemail       |((.//div[contains(@role,'main')]//table)[2]/tbody/tr/td//span[contains(@email,'testemail744@gmail.com')]/parent::div[contains(text(),'(')])[last()]|xpath|
-|mailheading      |.//h2[contains(text(),'Test Email')]                                                                                                               |xpath|
-|mailreply        |.//div[contains(@role,'button') and contains(@aria-label,'Reply')]                                                                                 |xpath|
-|replybody        |.//div[contains(@role,'textbox') and contains(@aria-label,'Message Body')]                                                                         |xpath|
-|sendreply        |.//div[contains(@role,'button') and contains(text(),'Send')]                                                                                       |xpath|
-|inboxlink        |.//a[contains(text(),'Inbox')]                                                                                                                     |xpath|
-|threadtext       |(.//div[contains(@role,'listitem')][last()]//div[contains(text(),'One more')])[1]                                                                  |xpath|
+|Object Repository|MULTITHREAD                                                                                             |
+|Id               |Value                                                                                             |Type |
+|maillist         |(.//div[contains(@role,'main')]//table)[2]/tbody                                                  |xpath|
+|singlemail       |(.//div[contains(@role,'main')]//table)[2]/tbody/tr/td//span[contains(text(),'One more ')][last()]|xpath|
+|mailheading      |.//h2[contains(text(),'Test Email')]                                                              |xpath|
+|mailreply        |.//div[contains(@role,'button') and contains(@aria-label,'Reply')]                                |xpath|
+|replybody        |.//div[contains(@role,'textbox') and contains(@aria-label,'Message Body')]                        |xpath|
+|sendreply        |.//div[contains(@role,'button') and contains(text(),'Send')]                                      |xpath|
+|inboxlink        |.//a[contains(text(),'Inbox')]                                                                    |xpath|
+|threadtext       |(.//div[contains(@role,'listitem')][last()]//div[contains(text(),'One more')])[1]                 |xpath|
 
 |Object Repository|TOOL                                                                                                                                                               |
 |Id               |Value                                                                                                                                                        |Type |
