@@ -29,6 +29,8 @@
 |type                 |{$body}               |into|{$GMAIL.bodyarea}    |text field|
 |pause  execution  for|2                     |seconds                              |
 |click                |{$GMAIL.sendbutton}                                         |
+|pause  execution  for|5                     |seconds                              |
+
 
 
 
@@ -77,6 +79,8 @@
 |click                 |{$LABEL.okbutton}                                                                   |
 |End If                                                                                                     |
 |end  loop                                                                                                  |
+|pause  execution  for |3                           |seconds                                                |
+|scroll to             |{$LABEL.createnewlabelbutton}                                                       |
 |click                 |{$LABEL.createnewlabelbutton}                                                       |
 |variable              |verifypopup                 |equals  to                                             |
 |verify page contains  |{$LABEL.createpopup}        |element                                                |
