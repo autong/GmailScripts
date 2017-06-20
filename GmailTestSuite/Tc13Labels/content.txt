@@ -1,6 +1,27 @@
 |import                          |
 |net.indecomm.autong.api.fitnesse|
 
+----
+'''Test Steps'''
+1. Open the google mail
+2. Navigate to label settings
+3. Create and delete a label from settings
+4. Navigate to inbox
+5. Select a mail and from toolbar, create a label
+6. Navigate to in:<label> folder and verify label is created
+8. Add a label to a mail by dragging and dropping the label to the mail
+9. Verify label is added
+
+
+'''Pre condition for script execution'''
+Test URL: https://mail.google.com/
+
+
+'''Post execution instructions'''
+Not applicable
+----
+
+
 !include -c <GmailTestSuite.CommonLibraries
 
 
@@ -8,7 +29,7 @@
 !|Script                   |AutomationNG                                    |
 |set test                  |${PAGE_NAME}                                    |
 |set result name           |${PAGE_NAME}          |at path     |${PAGE_PATH}|
-|start browser and open url|https://www.gmail.com                           |
+|start browser and open url|${DEFAULT_URL}                                  |
 |read gmail data from excel sheet                                           |
 |login with username       |testemail744@gmail.com|and password|test@744    |
 |pause  execution  for     |15                    |seconds                  |

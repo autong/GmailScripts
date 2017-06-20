@@ -1,38 +1,7 @@
-|Data Repository     |DATASHEET                                         |
-|Id                  |Value                                             |
-|url                 |!-http://www.gmail.com/-!                         |
-|downloadfilelocation|!-C:\Users\Govind.Kalria\Downloads\testPhoto.png-!|
-
-|Object Repository        |LABEL                                                                                                                  |
-|Id                       |Value                                                                                                            |Type |
-|allremove                |.//span[@role='link'][text()='remove']                                                                           |xpath|
-|removelink               |(.//span[@role='link'][text()='remove'])[1]                                                                      |xpath|
-|okbutton                 |//button[text()='Delete'][@name='ok']                                                                            |xpath|
-|createnewlabelbutton     |//button[text()='Create new label']                                                                              |xpath|
-|createpopup              |//span[@role='heading']                                                                                          |xpath|
-|createbuton              |//button[text()='Create']                                                                                        |xpath|
-|newlabeltextfield        |//label[contains(text(),'Please enter a new label name')]/../../input                                            |xpath|
-|verifylabelmessage       |//div[contains(text(),' was created.')]                                                                          |xpath|
-|leftsidecreatelabel      |//div/span/a[contains(text(),'MynewLabel')]                                                                      |xpath|
-|showinlabelistdropdown   |//span[contains(text(),'Show in label list')]/span                                                               |xpath|
-|showallitemlabellist     |(.//span[contains(text(),'Show in label list')]/following::div/div[@role='menuitem']/div[text()='Show all'])[1]  |xpath|
-|hideallitemlabellist     |(.//span[contains(text(),'Show in label list')]/following::div/div[@role='menuitem']/div[text()='Hide all'])[1]  |xpath|
-|showinmessagelist        |//span[contains(text(),'Show in message list')]/span                                                             |xpath|
-|showallitemmessagelist   |(.//span[contains(text(),'Show in message list')]/following::div/div[@role='menuitem']/div[text()='Show all'])[1]|xpath|
-|hidealltemmessagelist    |(.//span[contains(text(),'Show in message list')]/following::div/div[@role='menuitem']/div[text()='Hide all'])[1]|xpath|
-|editlink                 |(.//span[@role='link'][text()='edit'])[1]                                                                        |xpath|
-|removebutton             |(//div/div[contains(text(),'Remove label')])[1]                                                                  |xpath|
-|refreshbutton            |(//div[@aria-label='Refresh'])[2]                                                                                |xpath|
-|labelname                |//div[contains(text(),'MynewLabel')]                                                                             |xpath|
-|leftsidelabel            |//div/span/a[contains(@title,'MynewLabel')]                                                                      |xpath|
-|createnewbuttons         |//div[contains(@role,'menuitem')]/div[contains(text(),'Create new')]                                             |xpath|
-|creates                  |//button[text()='Create']                                                                                        |xpath|
-|labelnameinsdiemail      |//div[@name='MynewLabel'][@role='button']                                                                        |xpath|
-|verifycheckboxindropdown |//div[@role='menuitemcheckbox'][@title='MynewLabel'][@aria-checked='false']                                      |xpath|
-|createlabeltextfield     |//label[contains(text(),'Please enter a new label name')]/../../input                                            |xpath|
-|verifylabelnamedropdown  |//div[@role='menuitemcheckbox'][@title='MynewLabel']/div                                                         |xpath|
-|applybutton              |//div[@role='menuitem']/div[text()='Apply']                                                                      |xpath|
-|checkboxlabelnamedropdown|.//div[@role='menuitemcheckbox'][@title='MynewLabel'][@aria-checked='false']/div/div                             |xpath|
+|Data Repository     |DATASHEET                                  |
+|Id                  |Value                                      |
+|url                 |!-http://www.gmail.com/-!                  |
+|downloadfilelocation|!-/Users/Priyanka/Downloads/testPhoto.png-!|
 
 
 |Object Repository        |INBOX                                                                                     |
@@ -88,7 +57,7 @@
 |formattogglebutton|.//div[@data-tooltip='Formatting options']         |xpath|
 |undolink          |link_undo                                          |id   |
 |italicformatbutton|.//div[@data-tooltip='Italic ‪(Ctrl-I)‬']          |xpath|
-|boldformatbutton  |.//div[contains(@data-tooltip,"Bold ")]            |xpath|
+|boldformatbutton  |.//div[@data-tooltip='Bold ‪(Ctrl-B)‬']            |xpath|
 
 
 |Object Repository|DRAFT                                                                           |
@@ -179,16 +148,16 @@
 |innerbutton      |.//div[contains(@role,'button') and contains(@data-tooltip,'Search Mail')]                           |xpath|
 |mailval          |((.//div[contains(@role,'main')]//table)[1]/tbody/tr//td//div/span[contains(text(),'Test Email')])[1]|xpath|
 
-|Object Repository|MULTITHREAD                                                                                             |
-|Id               |Value                                                                                             |Type |
-|maillist         |(.//div[contains(@role,'main')]//table)[2]/tbody                                                  |xpath|
-|singlemail       |(.//div[contains(@role,'main')]//table)[2]/tbody/tr/td//span[contains(text(),'One more ')][last()]|xpath|
-|mailheading      |.//h2[contains(text(),'Test Email')]                                                              |xpath|
-|mailreply        |.//div[contains(@role,'button') and contains(@aria-label,'Reply')]                                |xpath|
-|replybody        |.//div[contains(@role,'textbox') and contains(@aria-label,'Message Body')]                        |xpath|
-|sendreply        |.//div[contains(@role,'button') and contains(text(),'Send')]                                      |xpath|
-|inboxlink        |.//a[contains(text(),'Inbox')]                                                                    |xpath|
-|threadtext       |(.//div[contains(@role,'listitem')][last()]//div[contains(text(),'One more')])[1]                 |xpath|
+|Object Repository|MULTITHREAD                                                                                                                                              |
+|Id               |Value                                                                                                                                              |Type |
+|maillist         |(.//div[contains(@role,'main')]//table)[2]/tbody                                                                                                   |xpath|
+|singlemail       |((.//div[contains(@role,'main')]//table)[2]/tbody/tr/td//span[contains(@email,'testemail744@gmail.com')]/parent::div[contains(text(),'(')])[last()]|xpath|
+|mailheading      |.//h2[contains(text(),'Test Email')]                                                                                                               |xpath|
+|mailreply        |.//div[contains(@role,'button') and contains(@aria-label,'Reply')]                                                                                 |xpath|
+|replybody        |.//div[contains(@role,'textbox') and contains(@aria-label,'Message Body')]                                                                         |xpath|
+|sendreply        |.//div[contains(@role,'button') and contains(text(),'Send')]                                                                                       |xpath|
+|inboxlink        |.//a[contains(text(),'Inbox')]                                                                                                                     |xpath|
+|threadtext       |(.//div[contains(@role,'listitem')][last()]//div[contains(text(),'One more')])[1]                                                                  |xpath|
 
 |Object Repository|TOOL                                                                                                                                                               |
 |Id               |Value                                                                                                                                                        |Type |
@@ -212,3 +181,36 @@
 |mailvertical     |((.//div[contains(@role,'main')]//table)[2]/tbody/tr/td[contains(@role,'link')]//span[contains(text(),'Delete mail test')])[last()]    |xpath|
 |mailhorizontal   |((.//div[contains(@role,'main')]//table)[2]/tbody/tr/td/div[contains(@role,'link')]//span[contains(text(),'Delete mail test')])[last()]|xpath|
 |mailhead         |.//h2[contains(text(),'Delete mail test')]                                                                                             |xpath|
+
+|Object Repository        |LABEL                                                                                                                  |
+|Id                       |Value                                                                                                            |Type |
+|allremove                |.//span[@role='link'][text()='remove']                                                                           |xpath|
+|removelink               |(.//span[@role='link'][text()='remove'])[1]                                                                      |xpath|
+|okbutton                 |//button[text()='Delete'][@name='ok']                                                                            |xpath|
+|createnewlabelbutton     |//button[text()='Create new label']                                                                              |xpath|
+|createpopup              |//span[@role='heading']                                                                                          |xpath|
+|createbuton              |//button[text()='Create']                                                                                        |xpath|
+|newlabeltextfield        |//label[contains(text(),'Please enter a new label name')]/../../input                                            |xpath|
+|verifylabelmessage       |//div[contains(text(),' was created.')]                                                                          |xpath|
+|leftsidecreatelabel      |//div/span/a[contains(text(),'MynewLabel')]                                                                      |xpath|
+|showinlabelistdropdown   |//span[contains(text(),'Show in label list')]/span                                                               |xpath|
+|showallitemlabellist     |(.//span[contains(text(),'Show in label list')]/following::div/div[@role='menuitem']/div[text()='Show all'])[1]  |xpath|
+|hideallitemlabellist     |(.//span[contains(text(),'Show in label list')]/following::div/div[@role='menuitem']/div[text()='Hide all'])[1]  |xpath|
+|showinmessagelist        |//span[contains(text(),'Show in message list')]/span                                                             |xpath|
+|showallitemmessagelist   |(.//span[contains(text(),'Show in message list')]/following::div/div[@role='menuitem']/div[text()='Show all'])[1]|xpath|
+|hidealltemmessagelist    |(.//span[contains(text(),'Show in message list')]/following::div/div[@role='menuitem']/div[text()='Hide all'])[1]|xpath|
+|editlink                 |(.//span[@role='link'][text()='edit'])[1]                                                                        |xpath|
+|removebutton             |(//div/div[contains(text(),'Remove label')])[1]                                                                  |xpath|
+|refreshbutton            |(//div[@aria-label='Refresh'])[2]                                                                                |xpath|
+|labelname                |//div[contains(text(),'MynewLabel')]                                                                             |xpath|
+|leftsidelabel            |//div/span/a[contains(@title,'MynewLabel')]                                                                      |xpath|
+|createnewbuttons         |//div[contains(@role,'menuitem')]/div[contains(text(),'Create new')]                                             |xpath|
+|creates                  |//button[text()='Create']                                                                                        |xpath|
+|labelnameinsdiemail      |//div[@name='MynewLabel'][@role='button']                                                                        |xpath|
+|verifycheckboxindropdown |//div[@role='menuitemcheckbox'][@title='MynewLabel'][@aria-checked='false']                                      |xpath|
+|createlabeltextfield     |//label[contains(text(),'Please enter a new label name')]/../../input                                            |xpath|
+|verifylabelnamedropdown  |//div[@role='menuitemcheckbox'][@title='MynewLabel']/div                                                         |xpath|
+|applybutton              |//div[@role='menuitem']/div[text()='Apply']                                                                      |xpath|
+|checkboxlabelnamedropdown|.//div[@role='menuitemcheckbox'][@title='MynewLabel'][@aria-checked='false']/div/div                             |xpath|
+
+

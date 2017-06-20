@@ -22,7 +22,7 @@ Not applicable
 !|Script                   |AutomationNG                                    |
 |set test                  |${PAGE_NAME}                                    |
 |set result name           |${PAGE_NAME}          |at path     |${PAGE_PATH}|
-|start browser and open url|https://www.gmail.com                           |
+|start browser and open url|${DEFAULT_URL}                                  |
 |read gmail data from excel sheet                                           |
 |login with username       |testemail744@gmail.com|and password|test@744    |
 |verify login action                                                        |

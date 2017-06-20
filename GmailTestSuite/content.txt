@@ -3,5 +3,6 @@
 !path FitNesseRoot/lib/*.jar
 !define TEST_SYSTEM {slim}
 !define SLIM_PORT {0}
-!define DEFAULT_BROWSER {chrome}
+!define DEFAULT_BROWSER {firefox}
+!define DEFAULT_URL {https://www.google.com/gmail/about/}
 

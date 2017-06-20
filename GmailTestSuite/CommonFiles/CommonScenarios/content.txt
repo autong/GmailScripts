@@ -4,197 +4,22 @@
 |variable              |suitePath                  |equals to           |
 |get Absolute Page Path|@pagepath                                       |
 
-!| Scenario   |start browser and open url _|url|
-|start browser|${DEFAULT_BROWSER}              |
-|maximize browser                              |
-|open URL     |@url                            |
-
-!| Scenario      |verify Lables from settings      |
-|compose a mail for Label                          |
-|navigate to labels link                           |
-|create new labels                                 |
-|verify show and hide label from in label list     |
-|verify show and hide label from in message list   |
-|verify remove and edit button after create a label|
-|create label from different places                |
-|verify label created sucessfully                  |
-|verify remove lable in newly created label folder |
-|drag and drop labels                              |
-
-!|Scenario            |compose a mail for Label                                    |
-|click                |{$GMAIL.composebutton}                                      |
-|wait  for  element   |{$GMAIL.tofield}                                            |
-|enter recepient      |{$recepient}                                                |
-|type                 |Labelcreation Testcase|into|{$GMAIL.subjectfield}|text field|
-|type                 |{$body}               |into|{$GMAIL.bodyarea}    |text field|
-|pause  execution  for|2                     |seconds                              |
-|click                |{$GMAIL.sendbutton}                                         |
-|pause  execution  for|5                     |seconds                              |
-
-
-
-
-!|Scenario             |verify remove lable in newly created label folder                                                      |
-|pause  execution  for |5                           |seconds                                                                   |
-|click                 |{$LABEL.labelname}                                                                                     |
-|variable              |checklabel                  |equals  to                                                                |
-|verify  page  contains|{$LABEL.labelnameinsdiemail}|element                                                                   |
-|assert                |{$checklabel}               |true with message         |New lable is displayed inside the mail         |
-|navigate to label                                                                                                             |
-|pause  execution  for |3                           |seconds                                                                   |
-|                      |press robot                 |*,a                       |key                                            |
-|                      |variable                    |verifyElementinGmail      |equals  to                                     |
-|                      |verify page contains        |{$LABEL.selectallcheckbox}|element                                        |
-|                      |If                          |{$verifyElementinGmail}                                                   |
-|                      |check check box             |{$LABEL.selectallcheckbox}                                                |
-|                      |End If                                                                                                 |
-|click                 |{$LABEL.removebutton}                                                                                  |
-|pause  execution  for |5                           |seconds                                                                   |
-|                      |variable                    |checkrefreshbutton        |equals  to                                     |
-|                      |verify page contains        |{$LABEL.refreshbutton}    |element                                        |
-|                      |click                       |{$LABEL.refreshbutton}                                                    |
-|                      |assert                      |{$checkrefreshbutton}     |true with message|removed the label sucessfully|
-
-
-
-!| Scenario        |navigate to labels link  |
-|open              |https://www.gmail.com|URL|
-|wait  for  element|{$SETTING.button}        |
-|focus and click   |{$SETTING.button}        |
-|wait  for  element|{$SETTING.link}          |
-|click             |{$SETTING.link}          |
-|wait  for  element|{$SETTING.labelbutton}   |
-|click             |{$SETTING.labelbutton}   |
-
-!|Scenario             |create new labels                                                                   |
-|variable              |remove                      |equals  to                                             |
-|get  element  count   |{$LABEL.allremove}                                                                  |
-|show                  |evaluate                    |{$remove}                                              |
-|loop                  |{$remove}                   |times                                                  |
-|variable              |verifyremoveelement         |equals  to                                             |
-|verify  page  contains|{$LABEL.removelink}         |element                                                |
-|If                    |{$verifyremoveelement}                                                              |
-|pause  execution  for |2                           |seconds                                                |
-|click                 |{$LABEL.removelink}                                                                 |
-|click                 |{$LABEL.okbutton}                                                                   |
-|End If                                                                                                     |
-|end  loop                                                                                                  |
-|pause  execution  for |3                           |seconds                                                |
-|scroll to             |{$LABEL.createnewlabelbutton}                                                       |
-|click                 |{$LABEL.createnewlabelbutton}                                                       |
-|variable              |verifypopup                 |equals  to                                             |
-|verify page contains  |{$LABEL.createpopup}        |element                                                |
-|If                    |{$verifypopup}                                                                      |
-|assert                |{$verifypopup}              |true with message|Create new label popup is displayed  |
-|type                  |MynewLabel                  |into             |{$LABEL.newlabeltextfield}|text field|
-|click                 |{$LABEL.createbuton}                                                                |
-|End If                                                                                                     |
-|variable              |verifycreatelabel           |equals  to                                             |
-|verify page contains  |{$LABEL.verifylabelmessage} |element                                                |
-|assert                |{$verifycreatelabel}        |true with message|label created sucessfully            |
-|verify page contains  |{$LABEL.leftsidecreatelabel}|element                                                |
-
-
-!|Scenario            |verify show and hide label from in label list                                             |
-|click                |{$LABEL.showinlabelistdropdown}                                                           |
-|pause  execution  for|5                              |seconds                                                   |
-|variable             |showall                        |equals  to                                                |
-|verify page contains |{$LABEL.showinlabelistdropdown}|element                                                   |
-|assert               |{$showall}                     |true with message|Show all displayed in Show in label list|
-|variable             |hideall                        |equals  to                                                |
-|verify page contains |{$LABEL.hideallitemlabellist}  |element                                                   |
-|assert               |{$hideall}                     |true with message|Hide all displayed in Show in label list|
-
-!|Scenario            |verify show and hide label from in message list                                                |
-|click                |{$LABEL.showinmessagelist}                                                                     |
-|pause  execution  for|5                              |seconds                                                        |
-|variable             |showall                        |equals  to                                                     |
-|verify page contains |{$LABEL.showallitemmessagelist}|element                                                        |
-|assert               |{$showall}                     |true with message|Show all is displayed in Show in message list|
-|variable             |hideall                        |equals  to                                                     |
-|verify page contains |{$LABEL.hidealltemmessagelist} |element                                                        |
-|assert               |{$hideall}                     |true with message|Hide all is displayed in Show in message list|
-
-
-!|Scenario               |verify remove and edit button after create a label                                                                                 |
-|variable                |remove                      |equals  to                                                                                            |
-|verify  page  contains  |{$LABEL.removelink}         |element                                                                                               |
-|assert                  |{$remove}                   |true with message           |remove link is displayed after creating a level                          |
-|variable                |edit                        |equals to                                                                                             |
-|verify  page  contains  |{$LABEL.editlink}           |element                                                                                               |
-|assert                  |{$edit}                     |true with message           |edit link is displayed after creating a level                            |
-|pause  execution  for   |5                           |seconds                                                                                               |
-|variable                |labelname                   |equals  to                                                                                            |
-|verify  page  contains  |{$LABEL.leftsidecreatelabel}|element                                                                                               |
-|assert                  |{$labelname}                |true with message           |label name is displayed in left side                                     |
-|click                   |{$LABEL.removelink}                                                                                                                |
-|click                   |{$LABEL.okbutton}                                                                                                                  |
-|pause  execution  for   |5                           |seconds                                                                                               |
-|variable                |labelname                   |equals  to                                                                                            |
-|verify page not contains|{$LABEL.leftsidecreatelabel}|element                                                                                               |
-|assert                  |{$labelname}                |true with message           |label name is not displayed after click on remove link                   |
-|                        |verify  page  contains      |{$LABEL.leftsidecreatelabel}|element                                                                  |
-|                        |assert                      |{$labelname}                |false with message|label name is not displayed after click on remove link|
-
-
-!|Scenario            |create label from different places                                                                         |
-|pause  execution  for|5                               |seconds                                                                   |
-|click                |{$INBOX.inboxlink}                                                                                         |
-|wait  until          |{$INBOX.firstcheckbox}          |element  is  clickable                                                    |
-|click                |{$INBOX.firstcheckbox}                                                                                     |
-|pause  execution  for|10                              |seconds                                                                   |
-|press robot          |L                               |key                                                                       |
-|click                |{$LABEL.createnewbuttons}                                                                                  |
-|variable             |verifypopup                     |equals  to                                                                |
-|verify page contains |{$LABEL.createpopup}            |element                                                                   |
-|If                   |{$verifypopup}                                                                                             |
-|assert               |{$verifypopup}                  |true with message                |Create new label popup is displayed     |
-|type                 |MynewLabel                      |into                             |{$LABEL.newlabeltextfield}  |text field |
-|click                |{$LABEL.creates}                                                                                           |
-|End If                                                                                                                           |
-|pause  execution  for|10                              |seconds                                                                   |
-|press robot          |L                               |key                                                                       |
-|variable             |checklabel                      |equals  to                                                                |
-|verify page contains |{$LABEL.verifylabelnamedropdown}|element                                                                   |
-|assert               |{$checklabel}                   |true with message                |newly created label is shown in dropdown|
-|open                 |https:www.gmail.com             |URL                                                                       |
-|pause  execution  for|10                              |seconds                                                                   |
-|wait  until          |{$INBOX.firstcheckbox}          |element  is  clickable                                                    |
-|click                |{$INBOX.firstcheckbox}                                                                                     |
-|                     |variable                        |checklabel                       |equals  to                              |
-|                     |verify page contains            |{$LABEL.verifycheckboxindropdown}|element                                 |
-|                     |If                              |{$checklabel}                                                             |
-|                     |check check box                 |{$LABEL.checkboxlabelnamedropdown}                                        |
-|                     |click                           |{$LABEL.applybutton}                                                      |
-|                     |End If                                                                                                     |
-
-
-
-!|Scenario           |verify label created sucessfully                              |
-|variable            |checklabel        |equals  to                                 |
-|verify page contains|{$LABEL.labelname}|element                                    |
-|assert              |{$checklabel}     |true with message|label created sucessfully|
-
-
-!|Scenario               |verify label deleted sucessfully                              |
-|variable                |checklabel        |equals  to                                 |
-|verify page not contains|{$LABEL.labelname}|element                                    |
-|assert                  |{$checklabel}     |true with message|label deleted sucessfully|
-
-!|Scenario             |drag and drop labels                                                                 |
-|click                 |{$INBOX.inboxlink}                                                                   |
-|open                  |https:www.gmail.com         |URL                                                     |
-|pause  execution  for |5                           |seconds                                                 |
-|verify label deleted sucessfully                                                                            |
-|wait  for  element    |{$LABEL.leftsidelabel}                                                               |
-|drag                  |{$LABEL.leftsidelabel}      |and  drop  to    |{$INBOX.firstcheckbox}                |
-|click                 |{$LABEL.labelname}                                                                   |
-|variable              |checklabel                  |equals  to                                              |
-|verify  page  contains|{$LABEL.labelnameinsdiemail}|element                                                 |
-|assert                |{$checklabel}               |true with message|New label is displayed inside the mail|
-|press robot           |Y                           |key                                                     |
-
-
+!| Scenario           |start browser and open url _|url          |
+|start browser        |${DEFAULT_BROWSER}                        |
+|maximize browser                                                |
+|open URL             |@url                                      |
+|variable             |currentBrowser              |equals  to   |
+|show                 |get current browser                       |
+|variable             |isExplorer                  |equals  to   |
+|verify               |{$currentBrowser}           |with|explorer|
+|set page time out    |1                                         |
+|pause  execution  for|4                           |seconds      |
+|variable             |isOtherPage                 |equals  to   |
+|verify page contains |.//a[text()='Sign In']      |element      |
+|set page time out    |30                                        |
+|If                   |{$isOtherPage}                            |
+|click                |.//a[text()='Sign In']                    |
+|End If                                                          |
 
 !| Scenario           |login with username _ and password _|username,password                         |
 |type                 |@username                           |into|{$LOGIN.usernamefield}    |text field|
@@ -206,7 +31,11 @@
 |type                 |@password                           |into|{$LOGIN.passwordfield}    |text field|
 |click                |{$LOGIN.loginbutton}                                                           |
 |Else                                                                                                 |
+|If                   |{$isExplorer}                                                                  |
+|send robot           |ENTER                               |key                                       |
+|Else                                                                                                 |
 |click                |{$LOGIN.nextbutton}                                                            |
+|End If                                                                                               |
 |wait  for  element   |{$LOGIN.passwordfield}                                                         |
 |type                 |@password                           |into|{$LOGIN.passwordfield}    |text field|
 |click                |{$LOGIN.loginbutton}                                                           |
@@ -223,10 +52,43 @@
 |End If                                                                                               |
 |End If                                                                                               |
 
-!| Scenario      |verify login action                                      |
-|variable        |loginSuccess   |equals to                                |
-|wait for element|{$INBOX.composebutton}                                   |
-|assert          |{$loginSuccess}|true with message|Verify login is success|
+!| Scenario           |verify login action                                                                  |
+|variable             |loginSuccess                               |equals to                                |
+|wait for element     |{$INBOX.composebutton}                                                               |
+|assert               |{$loginSuccess}                            |true with message|Verify login is success|
+|set page time out    |1                                                                                    |
+|variable             |chromeHeaderExists                         |equals  to                               |
+|verify page contains |.//a[text()='NO THANKS' and @role='button']|element                                  |
+|set page time out    |30                                                                                   |
+|If                   |{$chromeHeaderExists}                                                                |
+|click                |.//a[text()='NO THANKS' and @role='button']                                          |
+|pause  execution  for|2                                          |seconds                                  |
+|End If                                                                                                     |
+
+!|Scenario               |compose and verify email                                                                                 |
+|pause  execution  for   |10                                     |seconds                                                          |
+|capture image of element|//body                                 |to file|fullpage.png         |at path|{$suitePath}/images/dynamic|
+|compare image           |{$suitePath}/images/static/fullpage.png|with   |{$suitePath}/images/dynamic/fullpage.png                 |
+|pause  execution  for   |3                                      |seconds                                                          |
+|click                   |{$GMAIL.composebutton}                                                                                   |
+|wait  for  element      |{$GMAIL.tofield}                                                                                         |
+|enter recepient         |{$recepient}                                                                                             |
+|enter cc                |{$cc}                                                                                                    |
+|enter bcc               |{$bcc}                                                                                                   |
+|type                    |{$subject}                             |into   |{$GMAIL.subjectfield}|text field                         |
+|type                    |{$body}                                |into   |{$GMAIL.bodyarea}    |text field                         |
+|attach from drive       |{$driveFile}                                                                                             |
+|attach photo from photos|{$photo}                                                                                                 |
+|pause  execution  for   |6                                      |seconds                                                          |
+|click                   |{$GMAIL.sendbutton}                                                                                      |
+|pause  execution  for   |6                                      |seconds                                                          |
+|capture image of element|//body                                 |to file|fullpage.png         |at path|{$suitePath}/images/dynamic|
+|compare image           |{$suitePath}/images/static/fullpage.png|with   |{$suitePath}/images/dynamic/fullpage.png                 |
+|wait  for  element      |(.//b[text()='{$subject}'])[last()]/../../../../../..//div[@role='checkbox']                             |
+|click                   |(.//b[text()='{$subject}'])[last()]/../../../../../..//div[@role='checkbox']                             |
+|pause  execution  for   |1                                      |seconds                                                          |
+|click                   |.//div[@aria-label='Delete']                                                                             |
+|pause  execution  for   |1                                      |seconds                                                          |
 
 !| Scenario              |compose mail and verify                         |
 |pause  execution  for   |3         |seconds                              |
@@ -280,7 +142,7 @@
 !|Scenario            |verify formating                                                             |
 |send robot           |CONTROL,A                           |key                                     |
 |click                |{$GMAIL.formattogglebutton}                                                  |
-|pause  execution  for|3                                   |seconds                                 |
+|pause  execution  for|2                                   |seconds                                 |
 |click                |{$GMAIL.boldformatbutton}                                                    |
 |variable             |isFormatted                         |equals  to                              |
 |verify page contains |.//div[@aria-label='Message Body']/b|element                                 |
@@ -315,11 +177,14 @@
 !| Scenario           |verify email has arrived                                  |
 |click                |.//a[contains(text(),'Inbox')]                            |
 |variable             |emailArrived   |equals  to                                |
-|wait  for  element   |(.//b[contains(text(),'{$subject}')])[last()]             |
+|wait  for  element   |(.//b[text()='{$subject}'])[last()]                       |
 |assert               |{$emailArrived}|true with message|Verify email has arrived|
 |If                   |{$emailArrived}                                           |
 |pause  execution  for|1              |seconds                                   |
-|click                |(.//b[contains(text(),'{$subject}')])[last()]             |
+|click                |(.//b[text()='{$subject}'])[last()]                       |
+|pause  execution  for|4              |seconds                                   |
+|wait  for  element   |(.//div[@data-tooltip='Delete'])[last()]                  |
+|click                |(.//div[@data-tooltip='Delete'])[last()]                  |
 |pause  execution  for|2              |seconds                                   |
 |End If                                                                          |
 
@@ -337,7 +202,11 @@
 |assert                     |{$chatroster}                                                                               |true with message|Verify chat roster exists       |
 |select                     |{$CHAT.roster}                                                                              |frame                                             |
 |wait  for  element         |{$CHAT.user}                                                                                                                                   |
+|If                         |{$isExplorer}                                                                                                                                  |
+|mouse  over                |{$CHAT.user}                                                                                                                                   |
+|Else                                                                                                                                                                       |
 |execute javascript function|dispatchEvent(new MouseEvent("mouseover", {bubbles: true, cancelable: true, view: window}));|on element       |{$CHAT.user}                    |
+|End If                                                                                                                                                                     |
 |select                     |Default                                                                                     |frame                                             |
 |select                     |{$CHAT.profileframe}                                                                        |frame                                             |
 |variable                   |profilepopup                                                                                |equals  to                                        |
@@ -350,7 +219,8 @@
 |select                     |{$CHAT.textframe}                                                                           |frame                                             |
 |click                      |{$CHAT.textbox}                                                                                                                                |
 |type                       |Hi from AutomationNG, :)                                                                    |into             |{$CHAT.textbox}   |text field   |
-|press                      |ENTER                                                                                       |key                                               |
+|send robot                 |ENTER                                                                                       |key                                               |
+|                           |press                                                                                       |ENTER            |key                             |
 |pause  execution  for      |3                                                                                           |seconds                                           |
 |select                     |Default                                                                                     |frame                                             |
 
@@ -396,52 +266,52 @@
 |click                |{$CONTACT.popupclose}                                           |
 |close popup window                                                                    |
 
-!| Scenario              |verify theme change                                                                                                                        |
-|select                  |Default                                                     |frame                                                                         |
-|pause  execution  for   |2                                                           |seconds                                                                       |
-|capture image of element|.//a[@title='Gmail']/..                                     |to file|logo_light_2.png       |at path|C:\Users\Govind.Kalria\Desktop\Screens|
-|compare image           |C:\Users\Govind.Kalria\Desktop\Screens\logo_light.png       |with   |C:\Users\Govind.Kalria\Desktop\Screens\logo_light_2.png               |
-|pause  execution  for   |2                                                           |seconds                                                                       |
-|wait  for  element      |{$THEME.button}                                                                                                                            |
-|focus and click         |{$THEME.button}                                                                                                                            |
-|wait  for  element      |{$THEME.link}                                                                                                                              |
-|click                   |{$THEME.link}                                                                                                                              |
-|wait  for  element      |{$THEME.darktheme}                                                                                                                         |
-|scroll to               |{$THEME.darktheme}                                                                                                                         |
-|click                   |{$THEME.darktheme}                                                                                                                         |
-|pause  execution  for   |3                                                           |seconds                                                                       |
-|click                   |{$THEME.save}                                                                                                                              |
-|pause  execution  for   |2                                                           |seconds                                                                       |
-|send robot              |TAB                                                         |key                                                                           |
-|pause  execution  for   |2                                                           |seconds                                                                       |
-|capture image of element|.//a[@title='Gmail']/..                                     |to file|logo_dark_2.png        |at path|C:\Users\Govind.Kalria\Desktop\Screens|
-|compare image           |C:\Users\Govind.Kalria\Desktop\Screens\logo_dark.png        |with   |C:\Users\Govind.Kalria\Desktop\Screens\logo_dark_2.png                |
-|select                  |Default                                                     |frame                                                                         |
-|focus and click         |{$THEME.buttonre}                                                                                                                          |
-|wait  for  element      |{$THEME.link}                                                                                                                              |
-|click                   |{$THEME.link}                                                                                                                              |
-|wait  for  element      |{$THEME.lighttheme}                                                                                                                        |
-|scroll to               |{$THEME.lighttheme}                                                                                                                        |
-|click                   |{$THEME.lighttheme}                                                                                                                        |
-|pause  execution  for   |3                                                           |seconds                                                                       |
-|click                   |{$THEME.save}                                                                                                                              |
-|pause  execution  for   |2                                                           |seconds                                                                       |
-|click                   |{$GMAIL.composebutton}                                                                                                                     |
-|enter recepient         |testemail744@gmail.com                                                                                                                     |
-|type                    |Test Email                                                  |into   |{$GMAIL.subjectfield}  |text field                                    |
-|type                    |Automation Test Mail                                        |into   |{$GMAIL.bodyarea}      |text field                                    |
-|pause  execution  for   |2                                                           |seconds                                                                       |
-|send robot              |CONTROL,A                                                   |key                                                                           |
-|click                   |{$GMAIL.formattogglebutton}                                                                                                                |
-|pause  execution  for   |2                                                           |seconds                                                                       |
-|click                   |{$GMAIL.boldformatbutton}                                                                                                                  |
-|click                   |{$GMAIL.formattogglebutton}                                                                                                                |
-|click                   |{$GMAIL.bodyarea}                                                                                                                          |
-|pause  execution  for   |3                                                           |seconds                                                                       |
-|capture image of element|.//div[@role='dialog']/div[3]                               |to file|compose_mail_format.png|at path|C:\Users\Govind.Kalria\Desktop\Screens|
-|compare image           |C:\Users\Govind.Kalria\Desktop\Screens\compose_mail_base.png|with   |C:\Users\Govind.Kalria\Desktop\Screens\compose_mail_format.png        |
-|pause  execution  for   |2                                                           |seconds                                                                       |
-|click                   |.//div[@data-tooltip='Discard draft']                                                                                                      |
+!| Scenario              |verify theme change                                                                                                          |
+|select                  |Default                                              |frame                                                                  |
+|pause  execution  for   |2                                                    |seconds                                                                |
+|capture image of element|.//a[@title='Gmail']/..                              |to file|logo_light_2.png       |at path|/home/bhagavank/Desktop/Screens|
+|compare image           |/home/bhagavank/Desktop/Screens/logo_light.png       |with   |/home/bhagavank/Desktop/Screens/logo_light_2.png               |
+|pause  execution  for   |2                                                    |seconds                                                                |
+|wait  for  element      |{$THEME.button}                                                                                                              |
+|focus and click         |{$THEME.button}                                                                                                              |
+|wait  for  element      |{$THEME.link}                                                                                                                |
+|click                   |{$THEME.link}                                                                                                                |
+|wait  for  element      |{$THEME.darktheme}                                                                                                           |
+|scroll to               |{$THEME.darktheme}                                                                                                           |
+|click                   |{$THEME.darktheme}                                                                                                           |
+|pause  execution  for   |3                                                    |seconds                                                                |
+|click                   |{$THEME.save}                                                                                                                |
+|pause  execution  for   |2                                                    |seconds                                                                |
+|send robot              |TAB                                                  |key                                                                    |
+|pause  execution  for   |2                                                    |seconds                                                                |
+|capture image of element|.//a[@title='Gmail']/..                              |to file|logo_dark_2.png        |at path|/home/bhagavank/Desktop/Screens|
+|compare image           |/home/bhagavank/Desktop/Screens/logo_dark.png        |with   |/home/bhagavank/Desktop/Screens/logo_dark_2.png                |
+|select                  |Default                                              |frame                                                                  |
+|focus and click         |{$THEME.buttonre}                                                                                                            |
+|wait  for  element      |{$THEME.link}                                                                                                                |
+|click                   |{$THEME.link}                                                                                                                |
+|wait  for  element      |{$THEME.lighttheme}                                                                                                          |
+|scroll to               |{$THEME.lighttheme}                                                                                                          |
+|click                   |{$THEME.lighttheme}                                                                                                          |
+|pause  execution  for   |3                                                    |seconds                                                                |
+|click                   |{$THEME.save}                                                                                                                |
+|pause  execution  for   |2                                                    |seconds                                                                |
+|click                   |{$GMAIL.composebutton}                                                                                                       |
+|enter recepient         |testemail744@gmail.com                                                                                                       |
+|type                    |Test Email                                           |into   |{$GMAIL.subjectfield}  |text field                             |
+|type                    |Automation Test Mail                                 |into   |{$GMAIL.bodyarea}      |text field                             |
+|pause  execution  for   |2                                                    |seconds                                                                |
+|send robot              |CONTROL,A                                            |key                                                                    |
+|click                   |{$GMAIL.formattogglebutton}                                                                                                  |
+|pause  execution  for   |2                                                    |seconds                                                                |
+|click                   |{$GMAIL.boldformatbutton}                                                                                                    |
+|click                   |{$GMAIL.formattogglebutton}                                                                                                  |
+|click                   |{$GMAIL.bodyarea}                                                                                                            |
+|pause  execution  for   |3                                                    |seconds                                                                |
+|capture image of element|.//div[@role='dialog']/div[3]                        |to file|compose_mail_format.png|at path|/home/bhagavank/Desktop/Screens|
+|compare image           |/home/bhagavank/Desktop/Screens/compose_mail_base.png|with   |/home/bhagavank/Desktop/Screens/compose_mail_format.png        |
+|pause  execution  for   |2                                                    |seconds                                                                |
+|click                   |.//div[@data-tooltip='Discard draft']                                                                                        |
 
 
 !| Scenario              |verify attachments                                                                     |
@@ -575,13 +445,13 @@
 |assert               |{$ispresent}            |true with message|List contains search data     |
 |pause  execution  for|3                       |seconds                                         |
 
-!|Scenario        |refresh page                    |
-|open             |https://www.gmail.com|URL       |
-|variable         |popUpExists          |equals  to|
-|verify  popup  is|visible                         |
-|If               |{$popUpExists}                  |
-|popup  action    |ok                              |
-|End If                                            |
+!|Scenario        |refresh page                      |
+|open             |https://mail.google.com|URL       |
+|variable         |popUpExists            |equals  to|
+|verify  popup  is|visible                           |
+|If               |{$popUpExists}                    |
+|popup  action    |ok                                |
+|End If                                              |
 
 
 !| Scenario       |verify filters       |
@@ -779,7 +649,193 @@
 |click                 |{$MULTITHREAD.inboxlink}                         |
 |pause  execution  for |2                 |seconds                       |
 
+!| Scenario      |verify Lables from settings      |
+|compose mail for label                            |
+|navigate to labels link                           |
+|create new labels                                 |
+|verify show and hide label from in label list     |
+|verify show and hide label from in message list   |
+|verify remove and edit button after create a label|
+|create label from different places                |
+|verify label created sucessfully                  |
+|verify remove lable in newly created label folder |
+|drag and drop labels                              |
 
+!|Scenario            |compose mail for label                                      |
+|click                |{$GMAIL.composebutton}                                      |
+|wait  for  element   |{$GMAIL.tofield}                                            |
+|enter recepient      |{$recepient}                                                |
+|type                 |Labelcreation Testcase|into|{$GMAIL.subjectfield}|text field|
+|type                 |{$body}               |into|{$GMAIL.bodyarea}    |text field|
+|pause  execution  for|2                     |seconds                              |
+|click                |{$GMAIL.sendbutton}                                         |
+|pause  execution  for|5                     |seconds                              |
+
+
+!|Scenario             |verify remove lable in newly created label folder                                                      |
+|pause  execution  for |5                           |seconds                                                                   |
+|click                 |{$LABEL.labelname}                                                                                     |
+|variable              |checklabel                  |equals  to                                                                |
+|verify  page  contains|{$LABEL.labelnameinsdiemail}|element                                                                   |
+|assert                |{$checklabel}               |true with message         |New lable is displayed inside the mail         |
+|navigate to label                                                                                                             |
+|pause  execution  for |3                           |seconds                                                                   |
+|                      |press robot                 |*,a                       |key                                            |
+|                      |variable                    |verifyElementinGmail      |equals  to                                     |
+|                      |verify page contains        |{$LABEL.selectallcheckbox}|element                                        |
+|                      |If                          |{$verifyElementinGmail}                                                   |
+|                      |check check box             |{$LABEL.selectallcheckbox}                                                |
+|                      |End If                                                                                                 |
+|click                 |{$LABEL.removebutton}                                                                                  |
+|pause  execution  for |5                           |seconds                                                                   |
+|                      |variable                    |checkrefreshbutton        |equals  to                                     |
+|                      |verify page contains        |{$LABEL.refreshbutton}    |element                                        |
+|                      |click                       |{$LABEL.refreshbutton}                                                    |
+|                      |assert                      |{$checkrefreshbutton}     |true with message|removed the label sucessfully|
+
+
+
+!| Scenario        |navigate to labels link  |
+|open              |https://www.gmail.com|URL|
+|wait  for  element|{$SETTING.button}        |
+|click             |{$SETTING.button}        |
+|wait  for  element|{$SETTING.link}          |
+|click             |{$SETTING.link}          |
+|wait  for  element|{$SETTING.labelbutton}   |
+|click             |{$SETTING.labelbutton}   |
+
+!|Scenario             |create new labels                                                                   |
+|variable              |remove                      |equals  to                                             |
+|get  element  count   |{$LABEL.allremove}                                                                  |
+|show                  |evaluate                    |{$remove}                                              |
+|loop                  |{$remove}                   |times                                                  |
+|set page time out     |1                                                                                   |
+|variable              |verifyremoveelement         |equals  to                                             |
+|verify  page  contains|{$LABEL.removelink}         |element                                                |
+|set page time out     |30                                                                                  |
+|If                    |{$verifyremoveelement}                                                              |
+|pause  execution  for |2                           |seconds                                                |
+|click                 |{$LABEL.removelink}                                                                 |
+|click                 |{$LABEL.okbutton}                                                                   |
+|End If                                                                                                     |
+|end  loop                                                                                                  |
+|pause  execution  for |3                           |seconds                                                |
+|scroll to             |{$LABEL.createnewlabelbutton}                                                       |
+|click                 |{$LABEL.createnewlabelbutton}                                                       |
+|variable              |verifypopup                 |equals  to                                             |
+|verify page contains  |{$LABEL.createpopup}        |element                                                |
+|If                    |{$verifypopup}                                                                      |
+|assert                |{$verifypopup}              |true with message|Create new label popup is displayed  |
+|type                  |MynewLabel                  |into             |{$LABEL.newlabeltextfield}|text field|
+|click                 |{$LABEL.createbuton}                                                                |
+|End If                                                                                                     |
+|variable              |verifycreatelabel           |equals  to                                             |
+|verify page contains  |{$LABEL.verifylabelmessage} |element                                                |
+|assert                |{$verifycreatelabel}        |true with message|label created sucessfully            |
+|verify page contains  |{$LABEL.leftsidecreatelabel}|element                                                |
+
+
+!|Scenario            |verify show and hide label from in label list                                             |
+|click                |{$LABEL.showinlabelistdropdown}                                                           |
+|pause  execution  for|5                              |seconds                                                   |
+|variable             |showall                        |equals  to                                                |
+|verify page contains |{$LABEL.showinlabelistdropdown}|element                                                   |
+|assert               |{$showall}                     |true with message|Show all displayed in Show in label list|
+|variable             |hideall                        |equals  to                                                |
+|verify page contains |{$LABEL.hideallitemlabellist}  |element                                                   |
+|assert               |{$hideall}                     |true with message|Hide all displayed in Show in label list|
+
+!|Scenario            |verify show and hide label from in message list                                                |
+|click                |{$LABEL.showinmessagelist}                                                                     |
+|pause  execution  for|5                              |seconds                                                        |
+|variable             |showall                        |equals  to                                                     |
+|verify page contains |{$LABEL.showallitemmessagelist}|element                                                        |
+|assert               |{$showall}                     |true with message|Show all is displayed in Show in message list|
+|variable             |hideall                        |equals  to                                                     |
+|verify page contains |{$LABEL.hidealltemmessagelist} |element                                                        |
+|assert               |{$hideall}                     |true with message|Hide all is displayed in Show in message list|
+
+
+!|Scenario               |verify remove and edit button after create a label                                                                                 |
+|variable                |remove                      |equals  to                                                                                            |
+|verify  page  contains  |{$LABEL.removelink}         |element                                                                                               |
+|assert                  |{$remove}                   |true with message           |remove link is displayed after creating a level                          |
+|variable                |edit                        |equals to                                                                                             |
+|verify  page  contains  |{$LABEL.editlink}           |element                                                                                               |
+|assert                  |{$edit}                     |true with message           |edit link is displayed after creating a level                            |
+|pause  execution  for   |5                           |seconds                                                                                               |
+|variable                |labelname                   |equals  to                                                                                            |
+|verify  page  contains  |{$LABEL.leftsidecreatelabel}|element                                                                                               |
+|assert                  |{$labelname}                |true with message           |label name is displayed in left side                                     |
+|click                   |{$LABEL.removelink}                                                                                                                |
+|click                   |{$LABEL.okbutton}                                                                                                                  |
+|pause  execution  for   |5                           |seconds                                                                                               |
+|variable                |labelname                   |equals  to                                                                                            |
+|verify page not contains|{$LABEL.leftsidecreatelabel}|element                                                                                               |
+|assert                  |{$labelname}                |true with message           |Verify label name is not displayed after click on remove link            |
+|                        |verify  page  contains      |{$LABEL.leftsidecreatelabel}|element                                                                  |
+|                        |assert                      |{$labelname}                |false with message|label name is not displayed after click on remove link|
+
+
+!|Scenario            |create label from different places                                                         |
+|pause  execution  for|1                               |seconds                                                   |
+|click                |{$INBOX.inboxlink}                                                                         |
+|pause  execution  for|6                               |seconds                                                   |
+|click                |{$INBOX.firstcheckbox}                                                                     |
+|pause  execution  for|10                              |seconds                                                   |
+|press robot          |L                               |key                                                       |
+|click                |{$LABEL.createnewbuttons}                                                                  |
+|variable             |verifypopup                     |equals  to                                                |
+|verify page contains |{$LABEL.createpopup}            |element                                                   |
+|If                   |{$verifypopup}                                                                             |
+|assert               |{$verifypopup}                  |true with message|Create new label popup is displayed     |
+|type                 |MynewLabel                      |into             |{$LABEL.newlabeltextfield}  |text field |
+|click                |{$LABEL.creates}                                                                           |
+|End If                                                                                                           |
+|pause  execution  for|4                               |seconds                                                   |
+|verify label created sucessfully                                                                                 |
+|press robot          |L                               |key                                                       |
+|variable             |checklabel                      |equals  to                                                |
+|verify page contains |{$LABEL.verifylabelnamedropdown}|element                                                   |
+|assert               |{$checklabel}                   |true with message|newly created label is shown in dropdown|
+|open                 |https://www.gmail.com           |URL                                                       |
+|pause  execution  for|10                              |seconds                                                   |
+|click                |{$INBOX.firstcheckbox}                                                                     |
+
+
+!|Scenario           |verify label created sucessfully                                     |
+|set page time out   |1                                                                    |
+|variable            |checklabel        |equals  to                                        |
+|verify page contains|{$LABEL.labelname}|element                                           |
+|set page time out   |30                                                                   |
+|assert              |{$checklabel}     |true with message|Verify label created sucessfully|
+
+
+!|Scenario               |verify label deleted sucessfully                              |
+|set page time out       |1                                                             |
+|variable                |checklabel        |equals  to                                 |
+|verify page not contains|{$LABEL.labelname}|element                                    |
+|set page time out       |30                                                            |
+|assert                  |{$checklabel}     |true with message|label deleted sucessfully|
+
+!|Scenario               |drag and drop labels                                                              |
+|click                   |{$INBOX.inboxlink}                                                                |
+|open                    |https://www.gmail.com       |URL                                                  |
+|pause  execution  for   |5                           |seconds                                              |
+|verify label deleted sucessfully                                                                           |
+|open                    |https://www.gmail.com       |URL                                                  |
+|pause  execution  for   |5                           |seconds                                              |
+|wait  for  element      |.//a[@title='All Mail']                                                           |
+|mouse  over             |.//a[@title='All Mail']                                                           |
+|wait  for  element      |(.//span[text()='More'])[1]                                                       |
+|mouse hover and click on|(.//span[text()='More'])[1]                                                       |
+|wait  for  element      |{$LABEL.leftsidelabel}                                                            |
+|drag                    |{$LABEL.leftsidelabel}      |and  drop  to    |{$INBOX.firstcheckbox}             |
+|click                   |{$LABEL.labelname}                                                                |
+|variable                |checklabel                  |equals  to                                           |
+|verify  page  contains  |{$LABEL.labelnameinsdiemail}|element                                              |
+|assert                  |{$checklabel}               |true with message|Verify label added by drag and drop|
+|press robot             |Y                           |key                                                  |
 
 !| Scenario |navigate to label                                    |
 |clear  text|{$INBOX.searchfield}                                 |
